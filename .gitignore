@@ -6,3 +6,12 @@
 *.dot
 *.hi
 *.o
+*.chi
+*.chs.h
+dist
+cabal-dev
+.virtualenv
+.hsenv
+.cabal-sandbox/
+cabal.sandbox.config
+cabal.config
