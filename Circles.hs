@@ -27,7 +27,8 @@ draw count context = do
                  | col <- cycle ["red","blue","green"]
 		 ]
 
+main :: IO ()
 main = blankCanvas 3000 $ \ context -> defaultMain 
         [ bench (show n ++ " circles") $ nfIO $ draw n context
         | n <- [1000]
-        ] >> print "done"
+        ] >> putStrLn "done"
