@@ -20,12 +20,11 @@ draw count context = do
   xs <- sequence [ randomIO | _ <- [1..count]]
   ys <- sequence [ randomIO | _ <- [1..count]]
   send context $ do
---       clearCanvas
        sequence_ [ showBall (x * width context,y * height context) col
        		 | x <- xs
-		 | y <- ys 
-                 | col <- cycle ["red","blue","green"]
-		 ]
+		     | y <- ys 
+             | col <- cycle ["red","blue","green"]
+       ]
 
 main :: IO ()
 main = blankCanvas 3000 $ \ context -> defaultMain 
