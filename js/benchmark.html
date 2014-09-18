@@ -26,18 +26,34 @@
                 time(func, context);
             }
 
+/*            function loop(num, func, context) {
+                    if (num != 0) {
+                        var start = new Date().getTime();
+                        func(1000, context);
+                        var end = new Date().getTime();
+                        console.log(end - start);
+
+                        console.log(num);
+                        setTimeout(loop(num - 1, func, context), 100000);
+                    } else
+                        return;
+                }();
+            }*/
+
             // execute benchmark function, time
             function time(func, context) {
-                for (j = 0; j < 100; j++) {
-                    var start = new Date().getTime();
-                    func(1000, context);
-                    var end = new Date().getTime();
-                    console.log(end - start);
-
-                    window.setTimeout(function() {
-                        console.log("timeout");
-                    }, 10);
-                }
+                (function loop(num, func, context) {
+                    setTimeout(function() {
+                        if(num != 0) {
+                            var start = new Date().getTime();
+                            func(1000, context);
+                            var end = new Date().getTime();
+                            console.log(end - start);
+                            
+                            loop(num - 1, func, context);
+                         } else
+                            return
+                         }, 100);})(100, func, context);
             }
         </script>
         <style>
