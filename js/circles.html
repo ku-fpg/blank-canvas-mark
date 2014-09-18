@@ -5,23 +5,24 @@
                 function main() {
                     var canvas = document.getElementById("cnv");
                     var context = canvas.getContext("2d");
+
+                    var benchmark = location.search;
                     
                     canvas.width = window.innerWidth;
                     canvas.height = window.innerHeight;
-                    console.log(time(drawCircles, context));
+                    time(drawCircles, context);
                 }
 
                 function time(func, context) {
-                    var time = 0;
                     for (j = 0; j < 100; j++) {
-                        var start = new Date().getTime();
-                        func(1000, context);
-                        var end = new Date().getTime();
+                        setTimeout(function() {
+                            var start = new Date().getTime();
+                            func(1000, context);
+                            var end = new Date().getTime();
                         
-                        time += end - start;
+                            console.log(end - start);
+                        }, 0);
                     }
-
-                    return time / 100;
                 }
 
                 function drawCircles(num, ctx) {
