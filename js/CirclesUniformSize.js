@@ -1,4 +1,4 @@
-function drawCircles(num, ctx) {
+function CirclesUniformSize(num, ctx) {
     var x;
     var y;
     var col;

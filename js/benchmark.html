@@ -2,7 +2,7 @@
 <html>
     <head>
         <!-- Benchmark function imports -->
-        <script src="drawCircles.js"></script>
+        <script src="CirclesUniformSize.js"></script>
         <!-- Benchmark execution and timing -->
         <script>
             function main() {
@@ -11,13 +11,17 @@
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
                 
+                // select benchmark function                
                 var benchmark = location.search.match(/\?benchmark=(.*)/i)[1];
                 var func;
                 // select benchmark function 
                 switch (benchmark) {
-                    case "drawCircles":
-                        func = drawCircles;
+                    case "CirclesUniformSize":
+                        func = CirclesUniformSize;
                         break;
+                    default:
+                        console.log(benchmark + " is not a recognized benchmark function");
+                        return;
                 }
                 time(func, context);
             }
@@ -25,13 +29,14 @@
             // execute benchmark function, time
             function time(func, context) {
                 for (j = 0; j < 100; j++) {
-                    setTimeout(function() {
-                        var start = new Date().getTime();
-                        func(1000, context);
-                        var end = new Date().getTime();
-                    
-                        console.log(end - start);
-                    }, 0);
+                    var start = new Date().getTime();
+                    func(1000, context);
+                    var end = new Date().getTime();
+                    console.log(end - start);
+
+                    window.setTimeout(function() {
+                        console.log("timeout");
+                    }, 10);
                 }
             }
         </script>
