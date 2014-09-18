@@ -8,6 +8,7 @@
 *.o
 *.chi
 *.chs.h
+*.swp
 dist
 cabal-dev
 .virtualenv

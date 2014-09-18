@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Benchmark function imports -->
+        <script src="drawCircles.js"></script>
+        <!-- Benchmark execution and timing -->
+        <script>
+            function main() {
+                var canvas = document.getElementById("cnv");
+                var context = canvas.getContext("2d");
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                var benchmark = location.search.match(/\?benchmark=(.*)/i)[1];
+                var func;
+                // select benchmark function 
+                switch (benchmark) {
+                    case "drawCircles":
+                        func = drawCircles;
+                        break;
+                }
+                time(func, context);
+            }
+
+            // execute benchmark function, time
+            function time(func, context) {
+                for (j = 0; j < 100; j++) {
+                    setTimeout(function() {
+                        var start = new Date().getTime();
+                        func(1000, context);
+                        var end = new Date().getTime();
+                    
+                        console.log(end - start);
+                    }, 0);
+                }
+            }
+        </script>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
+    </head>
+    <body onload="main()">
+        <canvas id="cnv" width="100" height="100"></canvas>
+    </body>
+</html>
