@@ -6,18 +6,18 @@ import System.Environment
 
 -------------------------------------------------------------------------------
 
-import CirclesUniformSize
+import qualified CirclesUniformSize
 
 -------------------------------------------------------------------------------
 
-benches :: [DeviceContext -> IO ()]
-benches = [circlesUniformSize]
+benchmarks :: [DeviceContext -> IO ()]
+benchmarks = [CirclesUniformSize.benchmark]
 
 benchSummaries :: [String]
-benchSummaries = [circlesUniformSizeSummary]
+benchSummaries = [CirclesUniformSize.summary]
 
 numBenchmarks :: Int
-numBenchmarks = length benches
+numBenchmarks = length benchmarks
 
 main :: IO ()
 main = getArgs >>= \args -> case args of
@@ -32,7 +32,7 @@ runBenchmark n = blankCanvas 3000 $ \ context -> defaultMain
     [ bench summary . nfIO $ benchmark context
     ] >> putStrLn "done"
   where
-    benchmark = benches !! (n-1)
+    benchmark = benchmarks !! (n-1)
     summary   = benchSummaries !! (n-1)
 
 printUsage :: IO ()

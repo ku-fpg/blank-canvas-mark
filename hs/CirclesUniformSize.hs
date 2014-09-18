@@ -1,15 +1,15 @@
 {-# LANGUAGE OverloadedStrings, ParallelListComp #-}
-module CirclesUniformSize where
+module CirclesUniformSize (benchmark, summary) where
 
 import Data.Text hiding (count)
 import Graphics.Blank
 import System.Random
 
-circlesUniformSize :: DeviceContext -> IO ()
-circlesUniformSize = draw numCircles
+benchmark :: DeviceContext -> IO ()
+benchmark = draw numCircles
 
-circlesUniformSizeSummary :: String
-circlesUniformSizeSummary = show numCircles ++ " circles (uniform size)"
+summary :: String
+summary = show numCircles ++ " circles (uniform size)"
 
 numCircles :: Int
 numCircles = 1000
