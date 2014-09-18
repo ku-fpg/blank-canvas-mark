@@ -5,14 +5,21 @@
                 function main() {
                     var canvas = document.getElementById("cnv");
                     var context = canvas.getContext("2d");
-
-                    var benchmark = location.search;
-                    
                     canvas.width = window.innerWidth;
                     canvas.height = window.innerHeight;
-                    time(drawCircles, context);
+                    
+                    var benchmark = location.search.match(/\?benchmark=(.*)/i)[1];
+                    var func;
+                    // select benchmark function 
+                    switch (benchmark) {
+                        case "drawCircles":
+                            func = drawCircles;
+                            break;
+                    }
+                    time(func, context);
                 }
 
+                // execute benchmark function, time
                 function time(func, context) {
                     for (j = 0; j < 100; j++) {
                         setTimeout(function() {
