@@ -1,20 +1,21 @@
 {-# LANGUAGE OverloadedStrings, ParallelListComp #-}
-module CirclesUniformSize where
+module CirclesUniformSize (benchmark, summary) where
 
+import Control.Monad
 import Data.Text hiding (count)
 import Graphics.Blank
 import System.Random
 
-circlesUniformSize :: DeviceContext -> IO ()
-circlesUniformSize = draw numCircles
+benchmark :: DeviceContext -> IO ()
+benchmark = draw numCircles
 
-circlesUniformSizeSummary :: String
-circlesUniformSizeSummary = show numCircles ++ " circles (uniform size)"
+summary :: String
+summary = "circles_uniform_size"
 
 numCircles :: Int
 numCircles = 1000
 
-showBall :: (Float,Float) -> Text -> Canvas ()
+showBall :: (Float, Float) -> Text -> Canvas ()
 showBall (x, y) col = do
     beginPath();
     fillStyle(col);
@@ -24,10 +25,10 @@ showBall (x, y) col = do
 
 draw :: Int -> DeviceContext -> IO ()
 draw count context = do
-    xs <- sequence [ randomIO | _ <- [1..count]]
-    ys <- sequence [ randomIO | _ <- [1..count]]
+    xs <- replicateM count randomIO
+    ys <- replicateM count randomIO
     send context $ sequence_ [ showBall (x * width context,y * height context) col
                              | x <- xs
-                             | y <- ys 
+                             | y <- ys
                              | col <- cycle ["red","blue","green"]
                              ]
