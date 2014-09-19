@@ -15,7 +15,7 @@ summary = "circles_uniform_size"
 numCircles :: Int
 numCircles = 1000
 
-showBall :: (Float, Float) -> Text -> Canvas ()
+showBall :: (Double, Double) -> Text -> Canvas ()
 showBall (x, y) col = do
     beginPath();
     fillStyle(col);
