@@ -11,8 +11,18 @@ import           Graphics.Blank
 
 import           System.Random
 
+import           Utils
+
 benchmark :: DeviceContext -> IO ()
-benchmark = draw numWords
+benchmark ctx = do
+    xs <- replicateM numWords $ randomXCoord ctx
+    ys <- replicateM numWords $ randomYCoord ctx
+    ws <- cycle <$> replicateM numWords randomWord
+    send ctx $ sequence_ [ showText (x, y) word
+                             | x <- xs
+                             | y <- ys
+                             | word <- ws
+                             ]
 
 summary :: String
 summary = "MeasureText"
@@ -24,20 +34,9 @@ numWords = 50
 randomWord :: IO Text
 randomWord = fmap T.pack . replicateM 4 $ randomRIO ('a', 'z')
 
-showText :: (Double, Double) -> Text -> Canvas ()
+showText :: Point -> Text -> Canvas ()
 showText (x, y) txt = do
     fillStyle("black");
     font("10pt Calibri");
     fillText(txt, x, y);
     void $ measureText txt
-
-draw :: Int -> DeviceContext -> IO ()
-draw nWords ctx = do
-    xs <- replicateM nWords randomIO
-    ys <- replicateM nWords randomIO
-    ws <- cycle <$> replicateM nWords randomWord
-    send ctx $ sequence_ [ showText (x * width ctx, y * height ctx) word
-                             | x <- xs
-                             | y <- ys
-                             | word <- ws
-                             ]

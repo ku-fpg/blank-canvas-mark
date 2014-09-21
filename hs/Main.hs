@@ -8,6 +8,7 @@ import Graphics.Blank
 import qualified CirclesRandomSize
 import qualified CirclesUniformSize
 import qualified FillText
+import qualified IsPointInPath
 import qualified MeasureText
 
 -------------------------------------------------------------------------------
@@ -19,6 +20,7 @@ benchmarks :: [DeviceContext -> IO ()]
 benchmarks = [ CirclesRandomSize.benchmark
              , CirclesUniformSize.benchmark
              , FillText.benchmark
+             , IsPointInPath.benchmark
              , MeasureText.benchmark
              ]
 
@@ -26,6 +28,7 @@ benchSummaries :: [String]
 benchSummaries = [ CirclesRandomSize.summary
                  , CirclesUniformSize.summary
                  , FillText.summary
+                 , IsPointInPath.summary
                  , MeasureText.summary
                  ]
 
