@@ -20,6 +20,7 @@ executable blank-canvas-mark
                        FillText
                        IsPointInPath
                        MeasureText
+                       Rave
   build-depends:       base         >= 4.5  && < 4.8,
                        blank-canvas >= 0.5  && < 0.6,
                        criterion    >= 0.4.1,

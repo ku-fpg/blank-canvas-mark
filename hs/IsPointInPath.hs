@@ -30,10 +30,10 @@ pointRadius :: Double
 pointRadius = 5
 
 isInPath :: Path -> [Point] -> Canvas ()
-isInPath (pathX1, pathX2, pathY1, pathY2) points = do
+isInPath (pathX, pathY, pathW, pathH) points = do
     strokeStyle("blue");
     beginPath();
-    rect(pathX1, pathX2, pathY1, pathY2);
+    rect(pathX, pathY, pathW, pathH);
     cmds <- sequence [ do b <- isPointInPath(x, y);
                           return $ do
                               beginPath();

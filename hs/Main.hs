@@ -10,6 +10,7 @@ import qualified CirclesUniformSize
 import qualified FillText
 import qualified IsPointInPath
 import qualified MeasureText
+import qualified Rave
 
 import Utils
 
@@ -24,6 +25,7 @@ benchmarks = [ CirclesRandomSize.benchmark
              , FillText.benchmark
              , IsPointInPath.benchmark
              , MeasureText.benchmark
+             , Rave.benchmark
              ]
 
 benchSummaries :: [String]
@@ -32,6 +34,7 @@ benchSummaries = [ CirclesRandomSize.summary
                  , FillText.summary
                  , IsPointInPath.summary
                  , MeasureText.summary
+                 , Rave.summary
                  ]
 
 runBenchmark :: IO ()
