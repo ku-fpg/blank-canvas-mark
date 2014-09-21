@@ -11,12 +11,14 @@ import qualified FillText
 import qualified IsPointInPath
 import qualified MeasureText
 
+import Utils
+
 -------------------------------------------------------------------------------
 
 main :: IO ()
 main = runBenchmark
 
-benchmarks :: [DeviceContext -> IO ()]
+benchmarks :: [CanvasBenchmark]
 benchmarks = [ CirclesRandomSize.benchmark
              , CirclesUniformSize.benchmark
              , FillText.benchmark
@@ -33,6 +35,6 @@ benchSummaries = [ CirclesRandomSize.summary
                  ]
 
 runBenchmark :: IO ()
-runBenchmark = blankCanvas 3000 $ \ context -> do
-    defaultMain $ map (\(b, s) -> bench s . nfIO $ b context) $ zip benchmarks benchSummaries
+runBenchmark = blankCanvas 3000 $ \ ctx -> do
+    defaultMain $ map (\(b, s) -> bench s . nfIO $ b ctx) $ zip benchmarks benchSummaries
     putStrLn "done"

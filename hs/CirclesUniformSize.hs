@@ -6,7 +6,7 @@ import Data.Text hiding (count)
 import Graphics.Blank
 import Utils
 
-benchmark :: DeviceContext -> IO ()
+benchmark :: CanvasBenchmark
 benchmark ctx = do
     xs <- replicateM numCircles $ randomXCoord ctx
     ys <- replicateM numCircles $ randomYCoord ctx

@@ -8,7 +8,7 @@ import Graphics.Blank
 
 import Utils
 
-benchmark :: DeviceContext -> IO ()
+benchmark :: CanvasBenchmark
 benchmark ctx = do
     pathX1 <- randomXCoord ctx
     pathX2 <- randomXCoord ctx

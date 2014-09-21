@@ -4,6 +4,7 @@ import Control.Applicative
 import Graphics.Blank
 import System.Random
 
+type CanvasBenchmark = DeviceContext -> IO ()
 type Path = (Double, Double, Double, Double)
 type Point = (Double, Double)
 
