@@ -3,6 +3,9 @@
     <head>
         <!-- Benchmark function imports -->
         <script src="CirclesUniformSize.js"></script>
+        <script src="CirclesRandomSize.js"></script>
+        <script src="FillText.js"></script>
+        <script src="MeasureText.js"></script>
         <!-- Benchmark execution and timing -->
         <script>
             var times = [];
@@ -21,6 +24,15 @@
                 switch (benchmark) {
                     case "CirclesUniformSize":
                         func = CirclesUniformSize;
+                        break;
+                    case "CirclesRandomSize":
+                        func = CirclesRandomSize;
+                        break;
+                    case "FillText":
+                        func = FillText;
+                        break;
+                    case "MeasureText":
+                        func = MeasureText;
                         break;
                     default:
                         console.log(benchmark + " is not a recognized benchmark function");

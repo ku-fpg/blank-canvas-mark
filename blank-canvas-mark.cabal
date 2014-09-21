@@ -18,6 +18,7 @@ executable blank-canvas-mark
   other-modules:       CirclesRandomSize
                        CirclesUniformSize
                        FillText
+                       IsPointInPath
                        MeasureText
   build-depends:       base         >= 4.5  && < 4.8,
                        blank-canvas >= 0.5  && < 0.6,
