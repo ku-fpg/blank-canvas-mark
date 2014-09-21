@@ -17,6 +17,7 @@ executable blank-canvas-mark
   main-is:             Main.hs
   other-modules:       CirclesRandomSize
                        CirclesUniformSize
+                       FillText
   build-depends:       base         >= 4.5  && < 4.8,
                        blank-canvas >= 0.5  && < 0.6,
                        criterion    >= 0.4.1,
