@@ -10,7 +10,7 @@ benchmark :: DeviceContext -> IO ()
 benchmark = draw numCircles radiusMin radiusMax
 
 summary :: String
-summary = "circles_random_size"
+summary = "CirclesRandomSize"
 
 numCircles :: Int
 numCircles = 1000

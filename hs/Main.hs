@@ -8,6 +8,7 @@ import Graphics.Blank
 import qualified CirclesRandomSize
 import qualified CirclesUniformSize
 import qualified FillText
+import qualified MeasureText
 
 -------------------------------------------------------------------------------
 
@@ -18,12 +19,14 @@ benchmarks :: [DeviceContext -> IO ()]
 benchmarks = [ CirclesRandomSize.benchmark
              , CirclesUniformSize.benchmark
              , FillText.benchmark
+             , MeasureText.benchmark
              ]
 
 benchSummaries :: [String]
 benchSummaries = [ CirclesRandomSize.summary
                  , CirclesUniformSize.summary
                  , FillText.summary
+                 , MeasureText.summary
                  ]
 
 runBenchmark :: IO ()

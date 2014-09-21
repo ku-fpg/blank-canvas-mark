@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings, ParallelListComp #-}
-module FillText where
+module MeasureText where
 
 import           Control.Applicative
 import           Control.Monad
@@ -15,7 +15,7 @@ benchmark :: DeviceContext -> IO ()
 benchmark = draw numWords
 
 summary :: String
-summary = "FillText"
+summary = "MeasureText"
 
 numWords :: Int
 numWords = 50
@@ -29,6 +29,7 @@ showText (x, y) txt = do
     fillStyle("black");
     font("10pt Calibri");
     fillText(txt, x, y);
+    void $ measureText txt
 
 draw :: Int -> DeviceContext -> IO ()
 draw nWords ctx = do
