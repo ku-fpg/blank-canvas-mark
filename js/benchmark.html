@@ -6,6 +6,7 @@
         <script src="CirclesRandomSize.js"></script>
         <script src="FillText.js"></script>
         <script src="MeasureText.js"></script>
+        <script src="IsPointInPath.js"></script>
         <!-- Benchmark execution and timing -->
         <script>
             var times = [];
@@ -33,6 +34,9 @@
                         break;
                     case "MeasureText":
                         func = MeasureText;
+                        break;
+                    case "IsPointInPath":
+                        func = IsPointInPath;
                         break;
                     default:
                         console.log(benchmark + " is not a recognized benchmark function");
