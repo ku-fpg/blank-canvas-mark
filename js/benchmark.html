@@ -5,6 +5,9 @@
         <script src="CirclesUniformSize.js"></script>
         <!-- Benchmark execution and timing -->
         <script>
+            var times = [];
+            var total = 0;
+
             function main() {
                 var canvas = document.getElementById("cnv");
                 var context = canvas.getContext("2d");
@@ -23,37 +26,32 @@
                         console.log(benchmark + " is not a recognized benchmark function");
                         return;
                 }
-                time(func, context);
+                time(100, func, context);
             }
 
-/*            function loop(num, func, context) {
-                    if (num != 0) {
-                        var start = new Date().getTime();
-                        func(1000, context);
-                        var end = new Date().getTime();
-                        console.log(end - start);
-
-                        console.log(num);
-                        setTimeout(loop(num - 1, func, context), 100000);
-                    } else
-                        return;
-                }();
-            }*/
-
             // execute benchmark function, time
-            function time(func, context) {
-                (function loop(num, func, context) {
+            function time(trials, func, context) {
+                // build a recursive stack of rendering calls separated by timeouts
+                (function loop(trials, trial, func, context) {
                     setTimeout(function() {
-                        if(num != 0) {
+                        if (trial != 0) {
+                            // get time, store in times array
                             var start = new Date().getTime();
                             func(1000, context);
                             var end = new Date().getTime();
-                            console.log(end - start);
+                            times[trials - trial] = end - start;
                             
-                            loop(num - 1, func, context);
-                         } else
-                            return
-                         }, 100);})(100, func, context);
+                            loop(trials, trial - 1, func, context);
+                        // at the end of the stack, find the average
+                        } else if (trial == 0) {
+                            for (j = 0; j < trials; j++) {
+                                total += times[j];
+                            }
+
+                            console.log("Average function execution time: " + total / trials);
+                        } else
+                            return;
+                        }, 0);})(trials, trials, func, context);
             }
         </script>
         <style>
