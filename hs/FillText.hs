@@ -13,7 +13,7 @@ import           System.Random
 
 import           Utils
 
-benchmark :: DeviceContext -> IO ()
+benchmark :: CanvasBenchmark
 benchmark ctx = do
     xs <- replicateM numWords $ randomXCoord ctx
     ys <- replicateM numWords $ randomYCoord ctx
