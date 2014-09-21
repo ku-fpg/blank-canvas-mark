@@ -20,7 +20,7 @@ benchmark ctx = do
         ys = [0, dy .. h-dy]
     rgbsList <- replicateM numGradients . replicateM numColors $
         S.rgb <$> randomIO <*> randomIO <*> randomIO
-    send ctx $ sequence_ [ drawGradient (0, y, w, h) rgbs
+    send ctx $ sequence_ [ drawGradient (0, y, w, y+dy) rgbs
                          | y <- ys
                          | rgbs <- rgbsList
                          ]
@@ -33,9 +33,9 @@ numGradients = 10
 numColors    =  6
 
 drawGradient :: CanvasColor c => Path -> [c] -> Canvas ()
-drawGradient (x, y, w, h) cs = do
-    rect(x, y, w, h);
-    grd <- createLinearGradient(x, y, w, h);
+drawGradient (gx0, gy0, gx1, gy1) cs = do
+    rect(gx0, gy0, gx1, gy1);
+    grd <- createLinearGradient(gx0, gy0, gx1, gy1);
     let cMaxIndex = fromIntegral $ length cs - 1
     forM_ (zip cs [0..cMaxIndex]) $ \(c,i) ->
         grd # S.addColorStop (i/cMaxIndex, c);
