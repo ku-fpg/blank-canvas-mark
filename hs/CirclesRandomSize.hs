@@ -15,11 +15,11 @@ summary = "circles_random_size"
 numCircles :: Int
 numCircles = 1000
 
-radiusMin, radiusMax :: Float
+radiusMin, radiusMax :: Double
 radiusMin  = 5
 radiusMax  = 50
 
-showBall :: (Float, Float) -> Float -> Text -> Canvas ()
+showBall :: (Double, Double) -> Double -> Text -> Canvas ()
 showBall (x, y) r col = do
     beginPath();
     fillStyle(col);
@@ -27,7 +27,7 @@ showBall (x, y) r col = do
     closePath();
     fill();
 
-draw :: Int -> Float -> Float -> DeviceContext -> IO ()
+draw :: Int -> Double -> Double -> DeviceContext -> IO ()
 draw count rMin rMax context = do
     xs <- replicateM count randomIO
     ys <- replicateM count randomIO
