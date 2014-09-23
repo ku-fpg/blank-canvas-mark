@@ -1,5 +1,7 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, ParallelListComp #-}
 module Image where
+
+import           Control.Monad
 
 import qualified Data.Text as T
 import           Data.Text (Text)
@@ -13,15 +15,24 @@ import           Utils
 
 benchmark :: CanvasBenchmark
 benchmark ctx = do
-    x     <- randomXCoord ctx
-    y     <- randomYCoord ctx
-    w     <- randomXCoord ctx
-    h     <- randomYCoord ctx
-    theta <- randomRIO (0, 2*pi)
-    send ctx $ drawTheImage (x,y,w,h) theta
+    xs     <- replicateM numImages $ randomXCoord ctx
+    ys     <- replicateM numImages $ randomYCoord ctx
+    ws     <- replicateM numImages $ randomXCoord ctx
+    hs     <- replicateM numImages $ randomYCoord ctx
+    thetas <- replicateM numImages $ randomRIO (0, 2*pi)
+    send ctx $ sequence_ [ drawTheImage (x,y,w,h) theta
+                         | x     <- xs
+                         | y     <- ys
+                         | w     <- ws
+                         | h     <- hs
+                         | theta <- thetas
+                         ]
 
 summary :: String
 summary = "Image"
+
+numImages :: Int
+numImages = 100
 
 image :: Text
 image = T.pack $ "images" </> "cc" <.> "gif"
