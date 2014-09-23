@@ -7,6 +7,7 @@
         <script src="FillText.js"></script>
         <script src="MeasureText.js"></script>
         <script src="IsPointInPath.js"></script>
+        <script src="Rave.js"></script>
         <!-- Benchmark execution and timing -->
         <script>
             var times = [];
@@ -37,6 +38,9 @@
                         break;
                     case "IsPointInPath":
                         func = IsPointInPath;
+                        break;
+                    case "Rave":
+                        func = Rave;
                         break;
                     default:
                         console.log(benchmark + " is not a recognized benchmark function");
