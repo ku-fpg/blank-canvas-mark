@@ -15,6 +15,7 @@ import qualified IsPointInPath
 import qualified Life
 import qualified MeasureText
 import qualified Rave
+import qualified MouseClicks
 
 import Utils
 
@@ -33,6 +34,7 @@ benchmarks = [ Bezier.benchmark
              , Life.benchmark
              , MeasureText.benchmark
              , Rave.benchmark
+             , MouseClicks.benchmark
              ]
 
 benchSummaries :: [String]
@@ -45,6 +47,7 @@ benchSummaries = [ Bezier.summary
                  , Life.summary
                  , MeasureText.summary
                  , Rave.summary
+                 , MouseClicks.summary
                  ]
 
 runBenchmark :: IO ()
