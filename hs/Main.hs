@@ -12,6 +12,7 @@ import qualified CirclesUniformSize
 import qualified FillText
 import qualified Image
 import qualified IsPointInPath
+import qualified Life
 import qualified MeasureText
 import qualified Rave
 
@@ -29,6 +30,7 @@ benchmarks = [ Bezier.benchmark
              , FillText.benchmark
              , Image.benchmark
              , IsPointInPath.benchmark
+             , Life.benchmark
              , MeasureText.benchmark
              , Rave.benchmark
              ]
@@ -40,6 +42,7 @@ benchSummaries = [ Bezier.summary
                  , FillText.summary
                  , Image.summary
                  , IsPointInPath.summary
+                 , Life.summary
                  , MeasureText.summary
                  , Rave.summary
                  ]
