@@ -9,10 +9,8 @@ function Rave(num, ctx) {
     var y = 0;
     for (i = 0; i < numGradients; i++) {
         for (j = 0; j < numColors; j++) {
-            c1 = Math.floor(Math.random() * 255);
-            c2 = Math.floor(Math.random() * 255);
-            c3 = Math.floor(Math.random() * 255);
-            cols[j] = String("rgb(" + c1 + "," + c2 + "," + c3 + ")");
+            var c = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);})
+            cols[j] = c; 
         }
         
         ctx.beginPath()
