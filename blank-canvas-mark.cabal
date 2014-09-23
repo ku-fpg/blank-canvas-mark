@@ -16,7 +16,8 @@ data-files:          images/cc.gif
 
 executable blank-canvas-mark
   main-is:             Main.hs
-  other-modules:       CirclesRandomSize
+  other-modules:       Bezier
+                       CirclesRandomSize
                        CirclesUniformSize
                        FillText
                        Image

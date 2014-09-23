@@ -6,6 +6,7 @@ import Graphics.Blank
 
 -------------------------------------------------------------------------------
 
+import qualified Bezier
 import qualified CirclesRandomSize
 import qualified CirclesUniformSize
 import qualified FillText
@@ -22,7 +23,8 @@ main :: IO ()
 main = runBenchmark
 
 benchmarks :: [CanvasBenchmark]
-benchmarks = [ CirclesRandomSize.benchmark
+benchmarks = [ Bezier.benchmark
+             , CirclesRandomSize.benchmark
              , CirclesUniformSize.benchmark
              , FillText.benchmark
              , Image.benchmark
@@ -32,7 +34,8 @@ benchmarks = [ CirclesRandomSize.benchmark
              ]
 
 benchSummaries :: [String]
-benchSummaries = [ CirclesRandomSize.summary
+benchSummaries = [ Bezier.summary
+                 , CirclesRandomSize.summary
                  , CirclesUniformSize.summary
                  , FillText.summary
                  , Image.summary
