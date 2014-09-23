@@ -42,3 +42,4 @@ drawGradient (gx0, gy0, gx1, gy1) cs = do
         grd # S.addColorStop (i/cMaxIndex, c);
     S.fillStyle(grd);
     fill();
+    closePath();
