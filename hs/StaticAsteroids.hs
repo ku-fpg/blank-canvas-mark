@@ -15,7 +15,7 @@ summary :: String
 summary = "StaticAsteroids"
 
 numAsteroids :: Int
-numAsteroids = 10
+numAsteroids = 1000
 
 showAsteroid :: Point -> [Point] -> Canvas ()
 showAsteroid (x,y) pts = do
