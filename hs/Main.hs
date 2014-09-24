@@ -14,7 +14,7 @@ import qualified Image
 import qualified IsPointInPath
 import qualified Life
 import qualified MeasureText
-import qualified MouseClicks
+import qualified StaticAsteroids
 import qualified Rave
 
 import Utils
@@ -33,7 +33,7 @@ benchmarks = [ Bezier.benchmark
              , IsPointInPath.benchmark
              , Life.benchmark
              , MeasureText.benchmark
-             , MouseClicks.benchmark
+             , StaticAsteroids.benchmark
              , Rave.benchmark
              ]
 
@@ -46,7 +46,7 @@ benchSummaries = [ Bezier.summary
                  , IsPointInPath.summary
                  , Life.summary
                  , MeasureText.summary
-                 , MouseClicks.summary
+                 , StaticAsteroids.summary
                  , Rave.summary
                  ]
 
