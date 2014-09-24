@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings, ParallelListComp #-}
-module FillText where
+module FillText (benchmark, summary) where
 
 import           Control.Applicative
 import           Control.Monad

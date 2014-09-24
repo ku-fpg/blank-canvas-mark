@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings, ParallelListComp #-}
-module Image where
+module Image (benchmark, summary) where
 
 import           Control.Monad
 

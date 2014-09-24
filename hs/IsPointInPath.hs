@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings, ParallelListComp #-}
-module IsPointInPath where
+module IsPointInPath (benchmark, summary) where
 
 import Control.Applicative
 import Control.Monad
@@ -20,9 +20,6 @@ benchmark ctx = do
 summary :: String
 summary = "IsPointInPath"
 
-numPaths :: Int
-numPaths = 250
-
 pointsPerPath :: Int
 pointsPerPath = 10
 
@@ -38,7 +35,7 @@ isInPath (pathX, pathY, pathW, pathH) points = do
                           return $ do
                               beginPath();
                               fillStyle(if b then "red" else "green");
-                              arc(x, y, 5, 0, pi*2, False);
+                              arc(x, y, pointRadius, 0, pi*2, False);
                               fill();
                      | (x, y) <- points
                      ]

@@ -1,5 +1,5 @@
 {-# LANGUAGE ParallelListComp #-}
-module Rave where
+module Rave (benchmark, summary) where
 
 import           Control.Applicative
 import           Control.Monad
