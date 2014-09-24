@@ -40,8 +40,6 @@ benchmark ctx = do
   ys  <- replicateM numAsteroids $ randomRIO (0, height ctx)
   dxs <- replicateM numAsteroids $ randomRIO (-10, 15)
   dys <- replicateM numAsteroids $ randomRIO (-10, 15)
---  let dxs = cycle $ [5, 10, -5, -10, 13, 10, -12, -10, -5, -3, 7, 9]
- -- let dys = cycle $ [10, 15, -11, -9, 12, 10, -10, -5, -7, 5, 9]
   send ctx $ sequence_ [showAsteroid (x,y) (mkPts (x,y) ds) 
                        | x <- xs
                        | y <- ys
