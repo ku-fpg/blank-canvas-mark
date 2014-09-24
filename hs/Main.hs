@@ -15,6 +15,7 @@ import qualified IsPointInPath
 import qualified Life
 import qualified MeasureText
 import qualified Rave
+import qualified StaticAsteroids
 
 import Utils
 
@@ -33,6 +34,7 @@ benchmarks = [ Bezier.benchmark
              , Life.benchmark
              , MeasureText.benchmark
              , Rave.benchmark
+             , StaticAsteroids.benchmark
              ]
 
 benchSummaries :: [String]
@@ -45,11 +47,12 @@ benchSummaries = [ Bezier.summary
                  , Life.summary
                  , MeasureText.summary
                  , Rave.summary
+                 , StaticAsteroids.summary
                  ]
 
 runBenchmark :: IO ()
 runBenchmark = do
     dat <- getDataDir
     blankCanvas 3000 { root = dat } $ \ ctx -> do
-        defaultMain $ map (\(b, s) -> bench s . nfIO $ b ctx) $ zip benchmarks benchSummaries
+        defaultMain . map (\(b, s) -> bench s . nfIO $ b ctx) $ zip benchmarks benchSummaries
         putStrLn "done"

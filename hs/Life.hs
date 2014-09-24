@@ -1,5 +1,5 @@
 {- Code adapted from https://github.com/ku-fpg/better-life -}
-module Life where
+module Life (benchmark, summary) where
 
 import Control.Concurrent
 import Control.Monad
@@ -108,10 +108,3 @@ gliderGun = [(2,6), (2,7), (3,6), (3,7), (12,6),
     (22,4), (22,5), (22,6), (23,4), (23,5), 
     (23,6), (24,3), (24,7), (26,2), (26,3), 
     (26,7), (26,8), (36,4), (36,5), (37,4), (37,5)]
-
--- -- Runs Life indefinitely
--- life :: Config -> [Pos] -> IO ()
--- life c b = blankCanvas 3000 $ \dc -> lifeCanvas dc (scene c b :: Board)
--- 
--- main :: IO ()
--- main = life ((50,50),False) gliderGun

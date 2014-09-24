@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings, ParallelListComp #-}
-module MeasureText where
+module MeasureText (benchmark, summary) where
 
 import           Control.Applicative
 import           Control.Monad
