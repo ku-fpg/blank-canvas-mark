@@ -21,11 +21,11 @@
                 var context = canvas.getContext("2d");
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
-                
-                // select benchmark function                
+
+                // select benchmark function
                 var benchmark = location.search.match(/\?benchmark=(.*)/i)[1];
                 var func;
-                // select benchmark function 
+                // select benchmark function
                 switch (benchmark) {
                     case "CirclesUniformSize":
                         func = CirclesUniformSize;
@@ -46,7 +46,7 @@
                         func = Rave;
                         break;
                     case "Image":
-                        func = Image;
+                        func = ImageMark;
                         break;
                     case "Bezier":
                         func = Bezier;
@@ -69,11 +69,15 @@
                         if (trial != 0) {
                             // get time, store in times array
                             var start = new Date().getTime();
-                            func(1000, context);
-                            var end = new Date().getTime();
-                            times[trials - trial] = end - start;
-                            
-                            loop(trials, trial - 1, func, context);
+                            var k = func(1000, context);
+      	                    if (typeof k != "function") {
+      	                       k = function(r) { r(); }
+      	    		            }
+      	                    k(function() {
+      	                    	var end = new Date().getTime();
+                              times[trials - trial] = end - start;
+                              loop(trials, trial - 1, func, context);
+      	                    });
                         // at the end of the stack, find the average
                         } else if (trial == 0) {
                             for (j = 0; j < trials; j++) {
