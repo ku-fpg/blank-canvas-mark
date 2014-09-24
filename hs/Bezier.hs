@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Bezier where
+module Bezier (benchmark, summary) where
 
 import Control.Applicative
 import Control.Monad
@@ -10,7 +10,7 @@ import Utils
 
 benchmark :: CanvasBenchmark
 benchmark ctx = do
-    bzs <- replicateM 6 $ (,,,,,)
+    bzs <- replicateM numCurves $ (,,,,,)
                       <$> randomXCoord ctx
                       <*> randomYCoord ctx
                       <*> randomXCoord ctx
