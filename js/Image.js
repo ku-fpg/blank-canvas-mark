@@ -26,7 +26,7 @@ function ImageMark(num, ctx) {  return function (done) {
             	}
 
       	};
-	      img.onerror = function(e) { console.log(e); }
+	    img.onerror = function(e) { console.log(e); }
         img.src = "../images/cc.gif"
     }
     loop();
