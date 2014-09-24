@@ -12,7 +12,9 @@ benchmark ctx = do
   ys  <- replicateM numAsteroids $ randomYCoord ctx
   dxs <- replicateM numAsteroids $ randomRIO (-10, 15)
   dys <- replicateM numAsteroids $ randomRIO (-10, 15)
-  send ctx $ sequence_ [showAsteroid (x,y) (mkPts (x,y) ds) 
+  send ctx $ do
+       	     clearCanvas	 
+       	     sequence_ [showAsteroid (x,y) (mkPts (x,y) ds) 
                        | x <- xs
                        | y <- ys
                        | ds <- cycle $ splitEvery 10 $ zip dxs dys
