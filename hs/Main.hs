@@ -14,8 +14,8 @@ import qualified Image
 import qualified IsPointInPath
 import qualified Life
 import qualified MeasureText
-import qualified StaticAsteroids
 import qualified Rave
+import qualified StaticAsteroids
 
 import Utils
 
@@ -33,8 +33,8 @@ benchmarks = [ Bezier.benchmark
              , IsPointInPath.benchmark
              , Life.benchmark
              , MeasureText.benchmark
-             , StaticAsteroids.benchmark
              , Rave.benchmark
+             , StaticAsteroids.benchmark
              ]
 
 benchSummaries :: [String]
@@ -46,8 +46,8 @@ benchSummaries = [ Bezier.summary
                  , IsPointInPath.summary
                  , Life.summary
                  , MeasureText.summary
-                 , StaticAsteroids.summary
                  , Rave.summary
+                 , StaticAsteroids.summary
                  ]
 
 runBenchmark :: IO ()

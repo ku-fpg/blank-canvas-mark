@@ -1,15 +1,22 @@
 {-# Language ParallelListComp #-}
-
-module StaticAsteroids (summary, benchmark, showAsteroid) where
-
-import Graphics.Blank
+module StaticAsteroids (benchmark, summary) where
 
 import Control.Monad
+import Graphics.Blank
 import System.Random
-import Data.List(tails)
-import qualified Data.Text as T
+import Utils
 
-type Point = (Double, Double)
+benchmark :: CanvasBenchmark
+benchmark ctx = do
+  xs  <- replicateM numAsteroids $ randomXCoord ctx
+  ys  <- replicateM numAsteroids $ randomYCoord ctx
+  dxs <- replicateM numAsteroids $ randomRIO (-10, 15)
+  dys <- replicateM numAsteroids $ randomRIO (-10, 15)
+  send ctx $ sequence_ [showAsteroid (x,y) (mkPts (x,y) ds) 
+                       | x <- xs
+                       | y <- ys
+                       | ds <- cycle $ splitEvery 10 $ zip dxs dys
+                       ]
 
 summary :: String
 summary = "StaticAsteroids"
@@ -21,7 +28,7 @@ showAsteroid :: Point -> [Point] -> Canvas ()
 showAsteroid (x,y) pts = do
   beginPath()
   moveTo (x,y)
-  mapM lineTo pts
+  mapM_ lineTo pts
   closePath()
   stroke()
 
@@ -33,15 +40,3 @@ mkPts (x,y) ((dx, dy) : ds)= (x'+dx,y'+dy) : rest where
 
 splitEvery :: Int -> [a] -> [[a]]
 splitEvery n = takeWhile (not.null) . map (take n) . iterate (drop n) -- borrowed from Magnus Kronqvist on stack overflow
-
-benchmark :: DeviceContext  -> IO ()
-benchmark ctx = do
-  xs  <- replicateM numAsteroids $ randomRIO (0, width ctx) 
-  ys  <- replicateM numAsteroids $ randomRIO (0, height ctx)
-  dxs <- replicateM numAsteroids $ randomRIO (-10, 15)
-  dys <- replicateM numAsteroids $ randomRIO (-10, 15)
-  send ctx $ sequence_ [showAsteroid (x,y) (mkPts (x,y) ds) 
-                       | x <- xs
-                       | y <- ys
-                       | ds <- cycle $ splitEvery 10 $ zip dxs dys
-                       ]
