@@ -32,7 +32,7 @@ summary :: String
 summary = "Image"
 
 numImages :: Int
-numImages = 100
+numImages = 10
 
 image :: Text
 image = T.pack $ "images" </> "cc" <.> "gif"

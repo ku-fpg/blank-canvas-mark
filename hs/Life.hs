@@ -25,7 +25,7 @@ summary :: String
 summary = "Life"
 
 numIters :: Int
-numIters = 150
+numIters = 30
 
 data LifeBoard c b = LifeBoard{
     config :: c

@@ -19,7 +19,7 @@ function ImageMark(num, ctx) {  return function (done) {
               ctx.restore();
 
             	i++;
-            	if (i > 100) {
+            	if (i > 10) {
             	    done();
             	} else {
             	    loop();
