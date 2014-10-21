@@ -80,8 +80,15 @@
                 (function loop(func_list, func_num, context) {
                     setTimeout(function() {
                         if (func_num < func_list.length) {
-                            time(100, func_list[func_num], context);
-                            loop(func_list, func_num + 1, context);
+                            var k = time(100, func_list[func_num], context);
+                            if (typeof k != "function") {
+                                k = function(r) {
+                                    r();
+                                }
+                            }
+                            k(function() {
+                                loop(func_list, func_num + 1, context);
+                            });
                         } else
                             return;
                     }, 0);
