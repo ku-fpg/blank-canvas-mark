@@ -15,13 +15,27 @@
         <script>
             var times = [];
             var total = 0;
+            var output_csv = ["Name,Mean"];
 
             function main() {
                 var canvas = document.getElementById("cnv");
                 var context = canvas.getContext("2d");
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
+                var functions = [
+                    Bezier,
+                    CirclesRandomSize,
+                    CirclesUniformSize,
+                    FillText,
+                    Image,
+                    IsPointInPath,
+                    MeasureText,
+                    Rave,
+                    StaticAsteroids
+                ];
 
+                run(functions, context);
+                /*
                 // select benchmark function
                 var benchmark = location.search.match(/\?benchmark=(.*)/i)[1];
                 var func;
@@ -59,6 +73,19 @@
                         return;
                 }
                 time(100, func, context);
+                */
+            }
+
+            function run(func_list, context) {
+                (function loop(func_list, func_num, context) {
+                    setTimeout(function() {
+                        if (func_num < func_list.length) {
+                            time(100, func_list[func_num], context);
+                            loop(func_list, func_num + 1, context);
+                        } else
+                            return;
+                    }, 0);
+                })(func_list, 0, context);
             }
 
             // execute benchmark function, time
@@ -85,10 +112,11 @@
                             }
 
                             console.log("Average function execution time: " + total / trials);
-			    alert ("Average function execution time: " + total / trials);
+                            output_csv.push(func.name + "," + total / trials);
                         } else
                             return;
-                        }, 0);})(trials, trials, func, context);
+                        }, 0);
+                })(trials, trials, func, context);
             }
         </script>
         <style>
