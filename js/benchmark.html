@@ -2,7 +2,7 @@
 <html>
     <head>
         <!-- Benchmark function imports -->        
-	<script src="Bezier.js"></script>
+	    <script src="Bezier.js"></script>
         <script src="CirclesRandomSize.js"></script>
         <script src="CirclesUniformSize.js"></script>
         <script src="FillText.js"></script>
@@ -13,11 +13,33 @@
         <script src="StaticAsteroids.js"></script>
         <!-- Benchmark execution and timing -->
         <script>
+            var os;
+            var browser;
             var times = [];
             var total = 0;
             var output_csv = ["Name,Mean"];
 
             function main() {
+                // get system information
+                var nAgent = navigator.userAgent;
+                if (nAgent.indexOf("Firefox") != -1) {
+                    browser = "Firefox";
+                } else if (nAgent.indexOf("Chrome") != -1) {
+                    browser = "Chrome";
+                } else if (nAgent.indexOf("Safari") != -1) {
+                    browser = "Safari";
+                } else {
+                    browser = "UnknownBrowser";
+                }
+
+                if (nAgent.indexOf("Linux") != -1) {
+                    os = "Linux";
+                } else if (nAgeng.indexOf("Mac") != -1) {
+                    os = "OSX";
+                } else {
+                    os = "UnknownOS";
+                }
+
                 var canvas = document.getElementById("cnv");
                 var context = canvas.getContext("2d");
                 canvas.width = window.innerWidth;
@@ -34,69 +56,18 @@
                     StaticAsteroids
                 ];
 
-                run(functions, context);
-                /*
-                // select benchmark function
-                var benchmark = location.search.match(/\?benchmark=(.*)/i)[1];
-                var func;
-                // select benchmark function
-                switch (benchmark) {
-                    case "CirclesUniformSize":
-                        func = CirclesUniformSize;
-                        break;
-                    case "CirclesRandomSize":
-                        func = CirclesRandomSize;
-                        break;
-                    case "FillText":
-                        func = FillText;
-                        break;
-                    case "MeasureText":
-                        func = MeasureText;
-                        break;
-                    case "IsPointInPath":
-                        func = IsPointInPath;
-                        break;
-                    case "Rave":
-                        func = Rave;
-                        break;
-                    case "Image":
-                        func = ImageMark;
-                        break;
-                    case "Bezier":
-                        func = Bezier;
-                        break;
-                    case "StaticAsteroids":
-                        func = StaticAsteroids;
-                        break;
-                    default:
-                        console.log(benchmark + " is not a recognized benchmark function");
-                        return;
-                }
-                time(100, func, context);
-                */
+                time(functions, 100, context);
             }
 
-            function run(func_list, context) {
-                (function loop(func_list, func_num, context) {
-                    setTimeout(function() {
-                        if (func_num < func_list.length) {
-                            time(100, func_list[func_num], context);    
-                            loop(func_list, func_num + 1, context);
-                        } else
-                            return;
-                    }, 0);
-                })(func_list, 0, context);
-            }
-
-            // execute benchmark function, time
-            function time(trials, func, context) {
+            // execute benchmark functions, time
+            function time(functions, trials, context) {
                 // build a recursive stack of rendering calls separated by timeouts
-                (function loop(trials, trial, func, context) {
+                (function loop(trials, trial, functions, func_num, context) {
                     setTimeout(function() {
-                        if (trial != 0) {
+                        if (trial != 0 && func_num < functions.length) {
                             // get time, store in times array
                             var start = new Date().getTime();
-                            var k = func(1000, context);
+                            var k = functions[func_num](1000, context);
       	                    if (typeof k != "function") {
       	                        k = function(r) { 
                                     r(); 
@@ -105,20 +76,33 @@
       	                    k(function() {
       	                        var end = new Date().getTime();
                                 times[trials - trial] = end - start;
-                                loop(trials, trial - 1, func, context);
+                                loop(trials, trial - 1, functions, func_num, context);
       	                    });
-                        // at the end of the stack, find the average
-                        } else if (trial == 0) {
+                        } else if (trial == 0 && func_num < functions.length) {
+                            // at the end of the stack, find the average                           
                             for (j = 0; j < trials; j++) {
                                 total += times[j];
                             }
 
-                            console.log("Average function execution time: " + total / trials);
-                            output_csv.push(func.name + "," + total / trials);
+                            output_csv.push(functions[func_num].name + "," + total / trials);
+                            
+                            loop(trials, trials, functions, func_num + 1, context);
+                        } else if (func_num == functions.length) {
+                            // create output csv file 
+                            var csvString = output_csv.join("\r\n");
+                            var a = document.createElement("a");
+                            
+                            a.href = 'data:attachment/csv;charset=utf-8,' + escape(csvString);
+                            a.target = '_blank';
+                            a.download = os + "-" + browser + "-JavaScript.csv";
+                            a.innerHTML = "Click to download file.";
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
                         } else
                             return;
                         }, 0);
-                })(trials, trials, func, context);
+                })(trials, trials, functions, 0, context);
             }
         </script>
         <style>
