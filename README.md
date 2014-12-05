@@ -10,6 +10,10 @@ benchmarks for blank canvas
 
 ## To run JavaScript
 
+### OS X
     $ cd js
     $ open benchmark.html
 
+### Linux/BSD
+    $ cd js
+    $ xdg-open benchmark.html
