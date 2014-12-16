@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="jquery-2.1.1.min.js"></script>
+        <script>
+	  function rmquotes(q) {
+	    return q.replace(/\"/g, ''); // Brute force 
+	    // " Hack
+	  }
+	  function main() {
+	    var tab = {};
+	    $.get('/results/OSX-Chrome-BlankCanvas.csv',
+	        function(data) { 
+	          console.log(data ); 
+	          var a = data.split(/\r\n|\n/);
+	          console.log(a);
+	          var idx = $.map(a[0].split(/,/),rmquotes);
+	          console.log(idx);
+	          var nm = "X";
+	          for(var i = 1;i < a.length;i++) {
+		     if (a[i] != "") {
+			$.each(a[i].split(/,/),function(ix,val) {
+			    if (ix == 0) {
+				nm = rmquotes(val);
+	                        tab[nm] = {};
+		            } else {
+	                       console.log("A",nm);
+	                       tab[nm][idx[ix]] = val;
+	                    }
+			});
+                     }
+	          console.log(tab);
+                  }
+                });
+	  }
+	  $(main);
+
+        </script>
+    </head>
+    <body>
+      Hello
+    </body>
+</html>

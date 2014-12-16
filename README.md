@@ -26,3 +26,11 @@ To run a single test, use URL with dut
 ### Linux/BSD
     $ cd js
     $ xdg-open benchmark.html
+
+
+### To look at results
+
+    $ python -m SimpleHTTPServer
+    $ open http://localhost:8000/summary/results.html
+
+
