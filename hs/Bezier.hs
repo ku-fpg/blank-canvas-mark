@@ -10,17 +10,20 @@ import Utils
 
 benchmark :: CanvasBenchmark
 benchmark ctx = do
-    bzs <- replicateM numCurves $ (,,,,,)
+    bzs <- replicateM numBezier $ replicateM numCurves $ (,,,,,)
                       <$> randomXCoord ctx
                       <*> randomYCoord ctx
                       <*> randomXCoord ctx
                       <*> randomYCoord ctx
                       <*> randomXCoord ctx
                       <*> randomYCoord ctx
-    send ctx $ drawCloud bzs
+    send ctx $ forM_ bzs drawCloud 
 
 summary :: String
 summary = "Bezier"
+
+numBezier :: Int
+numBezier = 50
 
 numCurves :: Int
 numCurves = 6
