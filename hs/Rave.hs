@@ -29,7 +29,7 @@ summary :: String
 summary = "Rave"
 
 numGradients, numColors :: Int
-numGradients = 10
+numGradients = 100
 numColors    =  6
 
 drawGradient :: CanvasColor c => Path -> [c] -> Canvas ()

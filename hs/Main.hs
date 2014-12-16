@@ -30,11 +30,11 @@ benchmarks = [ Bezier.benchmark
              , CirclesUniformSize.benchmark
              , FillText.benchmark
              , Image.benchmark
+--             , Life.benchmark
+             , StaticAsteroids.benchmark
              , IsPointInPath.benchmark
-             , Life.benchmark
              , MeasureText.benchmark
              , Rave.benchmark
-             , StaticAsteroids.benchmark
              ]
 
 benchSummaries :: [String]
@@ -43,11 +43,11 @@ benchSummaries = [ Bezier.summary
                  , CirclesUniformSize.summary
                  , FillText.summary
                  , Image.summary
+--                 , Life.summary
+                 , StaticAsteroids.summary
                  , IsPointInPath.summary
-                 , Life.summary
                  , MeasureText.summary
                  , Rave.summary
-                 , StaticAsteroids.summary
                  ]
 
 runBenchmark :: IO ()

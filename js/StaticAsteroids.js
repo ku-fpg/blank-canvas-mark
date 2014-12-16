@@ -11,7 +11,7 @@ function StaticAsteroids(num, ctx) {
         y = Math.random() * canvas.height;
         ctx.beginPath();
         ctx.moveTo(x,y);
-        for(j=0; j < 10; j++){
+        for(j=0; j < 6; j++){
             x = nextPt(x);
             y = nextPt(y);
             ctx.lineTo(x, y);
