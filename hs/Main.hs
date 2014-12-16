@@ -53,6 +53,7 @@ benchSummaries = [ Bezier.summary
 runBenchmark :: IO ()
 runBenchmark = do
     dat <- getDataDir
+    putStrLn $ "Tests: " ++ unwords benchSummaries
     blankCanvas 3000 { root = dat } $ \ ctx -> do
         defaultMain . map (\(b, s) -> bench s . nfIO $ b ctx) $ zip benchmarks benchSummaries
         putStrLn "done"

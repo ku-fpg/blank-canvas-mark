@@ -28,7 +28,7 @@ summary :: String
 summary = "FillText"
 
 numWords :: Int
-numWords = 50
+numWords = 1000
 
 -- Randomly creates a four-letter, lowercase word
 randomWord :: IO Text

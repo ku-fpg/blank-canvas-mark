@@ -1,6 +1,6 @@
 function Bezier(num, ctx) {
-    var numBezier = 50;
-    var numCurves = 6;
+    var numBezier = 100;
+    var numCurves = 5;
     var curves = [];
     var x1;
     var y1;

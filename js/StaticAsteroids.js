@@ -5,10 +5,10 @@ function StaticAsteroids(num, ctx) {
         var sign = Math.random() < 0.5 ? -1 : 1;
         return pt + (sign * Math.random() * 15);
     };
-    ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     for(i = 0; i < num; i++){
-        x = Math.random() * window.innerWidth;
-        y = Math.random() * window.innerHeight;
+        x = Math.random() * canvas.width;
+        y = Math.random() * canvas.height;
         ctx.beginPath();
         ctx.moveTo(x,y);
         for(j=0; j < 10; j++){

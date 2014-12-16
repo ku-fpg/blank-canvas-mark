@@ -20,12 +20,12 @@ summary :: String
 summary = "CirclesUniformSize"
 
 numCircles :: Int
-numCircles = 1000
+numCircles = 1000 * 10
 
 showBall :: Point -> Text -> Canvas ()
 showBall (x, y) col = do
     beginPath();
     fillStyle(col);
-    arc(x, y, 10, 0, pi*2, False);
+    arc(x, y, 25, 0, pi*2, False);
     closePath();
     fill();

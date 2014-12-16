@@ -23,10 +23,10 @@ summary :: String
 summary = "Bezier"
 
 numBezier :: Int
-numBezier = 50
+numBezier = 100
 
 numCurves :: Int
-numCurves = 6
+numCurves = 5
 
 type Bezier = (Double, Double, Double, Double, Double, Double)
 

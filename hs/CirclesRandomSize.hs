@@ -23,10 +23,10 @@ summary :: String
 summary = "CirclesRandomSize"
 
 numCircles :: Int
-numCircles = 1000
+numCircles = 1000 * 10
 
 radiusMin, radiusMax :: Double
-radiusMin  = 5
+radiusMin  = 1
 radiusMax  = 50
 
 showBall :: Point -> Double -> Text -> Canvas ()

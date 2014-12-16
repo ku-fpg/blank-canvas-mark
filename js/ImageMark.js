@@ -2,10 +2,10 @@ function ImageMark(num, ctx) {  return function (done) {
     var i = 0;
 
     var loop = function () {
-        var x = Math.floor(Math.random() * window.innerWidth);
-        var y = Math.floor(Math.random() * window.innerHeight);
-        var w = Math.floor(Math.random() * window.innerWidth);
-        var h = Math.floor(Math.random() * window.innerHeight);
+        var x = Math.floor(Math.random() * canvas.width);
+        var y = Math.floor(Math.random() * canvas.height);
+        var w = Math.floor(Math.random() * canvas.width);
+        var h = Math.floor(Math.random() * canvas.height);
         var theta = Math.random() * 2 * Math.PI;
 
         var img = new Image();
@@ -14,12 +14,12 @@ function ImageMark(num, ctx) {  return function (done) {
               ctx.beginPath();
               ctx.save();
               ctx.rotate(theta);
-              ctx.drawImage(img, x, y, w, h);
+              ctx.drawImage(img, x - (w / 2), y - (w / 2), w, h);
               ctx.closePath();
               ctx.restore();
 
             	i++;
-            	if (i > 10) {
+            	if (i > 100) {
             	    done();
             	} else {
             	    loop();

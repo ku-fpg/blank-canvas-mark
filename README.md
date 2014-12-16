@@ -8,6 +8,11 @@ benchmarks for blank canvas
     $ cabal build
     $ ./dist/build/blank-canvas-mark/blank-canvas-mark -o foo.html -u foo.csv
 
+or
+
+    $ ./dist/build/blank-canvas-mark/blank-canvas-mark -o foo.html -u foo.csv Bezier
+
+
 ## To run JavaScript
 
 ### OS X

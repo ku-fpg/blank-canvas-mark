@@ -20,7 +20,9 @@ benchmark ctx = do
     ws     <- replicateM numImages $ randomXCoord ctx
     hs     <- replicateM numImages $ randomYCoord ctx
     thetas <- replicateM numImages $ randomRIO (0, 2*pi)
-    send ctx $ sequence_ [ drawTheImage (x,y,w,h) theta
+    send ctx $ do
+       img <- newImage image
+       sequence_ [ drawTheImage (x,y,w,h) theta img
                          | x     <- xs
                          | y     <- ys
                          | w     <- ws
@@ -35,16 +37,15 @@ numImages :: Int
 numImages = 10
 
 image :: Text
-image = T.pack $ "images" </> "cc" <.> "gif"
+image = T.pack $ "/images" </> "cc" <.> "gif"
 
 type Angle = Double
 
-drawTheImage :: Path -> Angle -> Canvas ()
-drawTheImage (x,y,w,h) theta = do
+drawTheImage :: Path -> Angle -> CanvasImage -> Canvas ()
+drawTheImage (x,y,w,h) theta img = do
     beginPath();
     save();
     rotate(theta);
-    img <- newImage image
     drawImageSize(img, x, y, w, h);
     closePath();
     restore();
