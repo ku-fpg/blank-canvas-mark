@@ -19,6 +19,12 @@
             var total = 0;
             var output_csv = ["Name,Mean"];
 
+            var urlQuery = {};
+            // From http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+            location.search.substr(1).split("&").forEach(function(item) {
+                    urlQuery[item.split("=")[0]] = item.split("=")[1];
+            });
+
             function main() {
                 // get system information
                 var nAgent = navigator.userAgent;
@@ -46,16 +52,19 @@
                 canvas.height = 600; // window.innerHeight;
                 var functions = [
                     Bezier,
-                    CirclesRandomSize,
+                    CirclesRandomSize, 
                     CirclesUniformSize,
                     FillText,
                     ImageMark,
                     StaticAsteroids,
                     IsPointInPath,
                     MeasureText,
-                    Rave,
+                    Rave, 
                 ];
+	        if (urlQuery.dut) {
+	          functions = [ eval(urlQuery.dut)  ];
 
+	        }
                 time(functions, 100, context);
             }
 
@@ -96,6 +105,7 @@
                             document.body.appendChild(a);
                             a.click();
                             document.body.removeChild(a);
+			    alert(csvString);
                         } else
                             return;
                         }, 0);

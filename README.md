@@ -14,6 +14,10 @@ benchmarks for blank canvas
     $ cd js
     $ open benchmark.html
 
+To run a single test, use URL with dut
+
+    file:///.../benchmark.html?dut=Bezier
+
 ### Linux/BSD
     $ cd js
     $ xdg-open benchmark.html
