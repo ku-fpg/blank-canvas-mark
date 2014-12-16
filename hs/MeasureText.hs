@@ -28,7 +28,7 @@ summary :: String
 summary = "MeasureText"
 
 numWords :: Int
-numWords = 1000
+numWords = 100
 
 -- Randomly creates a four-letter, lowercase word
 randomWord :: IO Text
