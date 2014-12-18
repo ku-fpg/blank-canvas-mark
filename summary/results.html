@@ -3,13 +3,20 @@
     <head>
         <script src="jquery-2.1.1.min.js"></script>
         <script>
+	  db = {};
 	  function rmquotes(q) {
 	    return q.replace(/\"/g, ''); // Brute force 
 	    // " Hack
 	  }
-	  function main() {
-	    var tab = {};
-	    $.get('/results/OSX-Chrome-BlankCanvas.csv',
+	  function loadResult(path) {
+	     var tab = db;
+	     $.each(path,function(ix,val) {
+	       if (!tab[val]) {
+	         tab[val] = {};
+	       }
+	       tab = tab[val];
+   	     });
+	     $.get('/results/' + path.join('-') + '.csv',
 	        function(data) { 
 	          console.log(data ); 
 	          var a = data.split(/\r\n|\n/);
@@ -31,7 +38,111 @@
                      }
 	          console.log(tab);
                   }
+		  redraw();		    
                 });
+
+
+
+
+	  }
+
+          function expand(quals) {
+		if (quals.length == 0) {
+                  return [[]];
+		}		    
+		var x = quals.slice(0).shift();
+		var r = [];		    
+		$.each(x,function(hdIx,hdVal) { 
+                   $.each(expand(quals.slice(1,quals.length)), function(tlIx,tlVal) {
+			r.push([hdVal].concat(tlVal));
+		   });
+		})		    
+		return r;    
+          }
+
+          function lookup(path) {
+		var ref = db;		    
+		$.each(path,function(ix,val) {
+		   if (ref != null && ref[val]) {
+		     ref = ref[val]		    
+		   } else {
+		     ref = null;	    
+	           }
+		});		    
+		return ref;		    
+	  }
+
+	  function pretty(val) {
+		if (val == null) { return "-"; }
+		if (val == undefined) { return "?"; }		    
+				    console.log(val);
+		if (isNaN(val)) { return "-"; }		    
+                return parseFloat(val).toFixed(2);		    
+          }
+
+          var tab = {};
+
+	  function redraw() {
+
+
+	     var columns = [ ['OSX'],
+		          ['Chrome','Firefox','Safari'],
+		          ['BlankCanvas','JavaScript','Ratio'] ];
+
+	  			    
+	     var rowsMap = {};		    
+
+	     $.each(expand(columns),function(colIx,colVal) {
+		for(var k in lookup(colVal)) {
+		   rowsMap[k] = 1;	    
+   	        }
+	     });
+	     console.log('ABC',rowsMap);
+	     var rows = [];
+	     for(var k in rowsMap) { rows.push(k); }
+
+	     $("#tab").html("");		    
+
+	     $.each([].concat("",rows),function(rowIx,rowVal) {
+   	       var tr = $("<tr>");
+	       $("#tab").append(tr);
+	       xx = tr;		    
+
+
+	        $(tr).append("<td align=\"right\">" + rowVal + "</td>");	    
+
+
+   	       $.each(expand(columns),function(colIx,colVal) {
+		  if (rowVal == "") {		    
+		    $(tr).append("<th align=\"center\">" + colVal.join("<BR>") + "</th>");	    
+                  } else {
+		    var val;
+		    if (colVal[colVal.length - 1] == "Ratio") {
+			val = lookup([].concat(colVal.slice(0,colVal.length-1),"BlankCanvas",rowVal,"Mean")) /
+			      lookup([].concat(colVal.slice(0,colVal.length-1),"JavaScript",rowVal,"Mean"))
+		    } else {	   
+			val = 1000 * lookup([].concat(colVal,rowVal,"Mean"));
+		    }		    
+		    console.log(val);		    
+		    $(tr).append("<td align=\"right\">" + pretty(val) + "</td>");	    
+   	          }
+	       });
+	     });
+
+
+	  }			   
+
+	  function main() {
+	     $.each(['OSX'],function(ix,os) {
+  	        $.each(['Chrome','Firefox','Safari'],function(ix,browser) {
+  	           $.each(['BlankCanvas','JavaScript'],function(ix,sys) {
+ 		       loadResult([os,browser,sys]);
+	           });
+                })
+	     })
+	     console.log(db);			   
+	     redraw();			    
+	     redraw();			    
 	  }
 	  $(main);
 
@@ -39,5 +150,7 @@
     </head>
     <body>
       Hello
+      <table id="tab" border="1">
+      </table>
     </body>
 </html>
