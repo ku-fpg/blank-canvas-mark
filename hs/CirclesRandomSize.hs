@@ -12,7 +12,7 @@ benchmark ctx = do
     xs <- replicateM numCircles $ randomXCoord ctx
     ys <- replicateM numCircles $ randomYCoord ctx
     rs <- replicateM numCircles $ randomRIO (radiusMin, radiusMax)
-    send ctx $ sequence_ [ showBall (x, y) r col
+    send' ctx $ sequence_ [ showBall (x, y) r col
                              | x <- xs
                              | y <- ys
                              | r <- rs

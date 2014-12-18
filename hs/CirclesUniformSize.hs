@@ -10,7 +10,7 @@ benchmark :: CanvasBenchmark
 benchmark ctx = do
     xs <- replicateM numCircles $ randomXCoord ctx
     ys <- replicateM numCircles $ randomYCoord ctx
-    send ctx $ sequence_ [ showBall (x, y) col
+    send' ctx $ sequence_ [ showBall (x, y) col
                              | x <- xs
                              | y <- ys
                              | col <- cycle ["red","blue","green"]

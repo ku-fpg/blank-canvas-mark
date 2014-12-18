@@ -15,7 +15,7 @@ benchmark ctx = do
     pathY1 <- randomYCoord ctx
     pathY2 <- randomYCoord ctx
     points <- replicateM pointsPerPath $ (,) <$> randomXCoord ctx <*> randomYCoord ctx
-    send ctx $ sequence_ [ isInPath (pathX1, pathX2, pathY1, pathY2) points]
+    send' ctx $ sequence_ [ isInPath (pathX1, pathX2, pathY1, pathY2) points]
 
 summary :: String
 summary = "IsPointInPath"

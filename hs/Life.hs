@@ -82,7 +82,7 @@ births b = LifeBoard (config b) $ filter (\p -> isEmpty b p && liveneighbs b p =
 
 lifeCanvas :: Int -> DeviceContext -> Board -> IO ()
 lifeCanvas n dc b = do 
-        send dc $ do 
+        send' dc $ do 
                 clearRect (0, 0, width dc, height dc)
                 renderBalls $ alive b
         threadDelay $ 50 * 50

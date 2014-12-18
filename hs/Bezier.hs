@@ -17,7 +17,7 @@ benchmark ctx = do
                       <*> randomYCoord ctx
                       <*> randomXCoord ctx
                       <*> randomYCoord ctx
-    send ctx $ forM_ bzs drawCloud 
+    send' ctx $ forM_ bzs drawCloud 
 
 summary :: String
 summary = "Bezier"

@@ -18,7 +18,7 @@ benchmark ctx = do
     xs <- replicateM numWords $ randomXCoord ctx
     ys <- replicateM numWords $ randomYCoord ctx
     ws <- cycle <$> replicateM numWords randomWord
-    send ctx $ sequence_ [ showText (x, y) word
+    send' ctx $ sequence_ [ showText (x, y) word
                              | x <- xs
                              | y <- ys
                              | word <- ws

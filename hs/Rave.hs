@@ -20,7 +20,7 @@ benchmark ctx = do
         ys = [0, dy .. h-dy]
     rgbsList <- replicateM numGradients . replicateM numColors $
         S.rgb <$> randomIO <*> randomIO <*> randomIO
-    send ctx $ sequence_ [ drawGradient (0, y, w, dy) rgbs
+    send' ctx $ sequence_ [ drawGradient (0, y, w, dy) rgbs
                          | y <- ys
                          | rgbs <- rgbsList
                          ]

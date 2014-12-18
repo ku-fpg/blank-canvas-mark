@@ -20,7 +20,7 @@ benchmark ctx = do
     ws     <- replicateM numImages $ randomXCoord ctx
     hs     <- replicateM numImages $ randomYCoord ctx
     thetas <- replicateM numImages $ randomRIO (0, 2*pi)
-    send ctx $ do
+    send' ctx $ do
        img <- newImage image
        sequence_ [ drawTheImage (x,y,w,h) theta img
                          | x     <- xs
@@ -31,10 +31,10 @@ benchmark ctx = do
                          ]
 
 summary :: String
-summary = "Image"
+summary = "ImageMark"
 
 numImages :: Int
-numImages = 10
+numImages = 100
 
 image :: Text
 image = T.pack $ "/images" </> "cc" <.> "gif"
