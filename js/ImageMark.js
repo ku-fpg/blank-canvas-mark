@@ -1,33 +1,28 @@
 function ImageMark(num, ctx) {  return function (done) {
-    var i = 0;
 
-    var loop = function () {
-        var x = Math.floor(Math.random() * canvas.width);
-        var y = Math.floor(Math.random() * canvas.height);
-        var w = Math.floor(Math.random() * canvas.width);
-        var h = Math.floor(Math.random() * canvas.height);
-        var theta = Math.random() * 2 * Math.PI;
+    var img = new Image();
+    img.onerror = function(e) { console.log(e); }
 
-        var img = new Image();
+    img.onload = function () {
+	var i = 0;
+        while(i < 100)  {
+	    var x = Math.floor(Math.random() * canvas.width);
+	    var y = Math.floor(Math.random() * canvas.height);
+	    var w = Math.floor(Math.random() * canvas.width);
+	    var h = Math.floor(Math.random() * canvas.height);
+	    var theta = Math.random() * 2 * Math.PI;
+	    
+	    ctx.beginPath();
+	    ctx.save();
+	    ctx.rotate(theta);
+	    ctx.drawImage(img, x - (w / 2), y - (w / 2), w, h);
+	    ctx.closePath();
+	    ctx.restore();
+	    i++;
+	}
 
-      	img.onload = function() {
-              ctx.beginPath();
-              ctx.save();
-              ctx.rotate(theta);
-              ctx.drawImage(img, x - (w / 2), y - (w / 2), w, h);
-              ctx.closePath();
-              ctx.restore();
-
-            	i++;
-            	if (i > 100) {
-            	    done();
-            	} else {
-            	    loop();
-            	}
-
-      	};
-	    img.onerror = function(e) { console.log(e); }
-        img.src = "../images/cc.gif"
+    	done();
     }
-    loop();
+    img.src = "../images/cc.gif"
+
 }}
