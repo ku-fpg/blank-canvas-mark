@@ -4,6 +4,9 @@ module Rave (benchmark, summary) where
 import           Control.Applicative
 import           Control.Monad
 
+import           Data.Key (forWithKey_)
+import           Data.List (genericLength)
+
 import           Graphics.Blank
 import qualified Graphics.Blank.Style as S
 import           Graphics.Blank.Style (CanvasColor)
@@ -37,9 +40,9 @@ drawGradient (gx0, gy0, gx1, gy1) cs = do
     beginPath();
     rect(gx0, gy0, gx1, gy1);
     grd <- createLinearGradient(gx0, gy0, gx1, gy0+gy1);
-    let cMaxIndex = fromIntegral $ length cs - 1
-    forM_ (zip cs [0..cMaxIndex]) $ \(c,i) ->
-        grd # S.addColorStop (i/cMaxIndex, c);
+    let cMaxIndex = genericLength cs - 1
+    forWithKey_ cs $ \i c ->
+        grd # S.addColorStop (fromIntegral i/cMaxIndex, c);
     S.fillStyle(grd);
     fill();
     closePath();
