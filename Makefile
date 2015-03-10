@@ -1,6 +1,7 @@
 # make test SYS=OSX-Chrome
 
 test::
+	mkdir -p results/
 	./dist/build/blank-canvas-mark/blank-canvas-mark -u results/$(SYS)-BlankCanvas.csv
 
 
