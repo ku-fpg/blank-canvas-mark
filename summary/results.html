@@ -4,6 +4,10 @@
         <script src="jquery-2.1.1.min.js"></script>
         <script>
 	  db = {};
+	  systems = ['OSX','Linux'];
+	  browsers = ['Chrome','Firefox','Safari'];
+	  duts = ['BlankCanvas','JavaScript'];
+
 	  function rmquotes(q) {
 	    return q.replace(/\"/g, ''); // Brute force 
 	    // " Hack
@@ -85,11 +89,10 @@
 	  function redraw() {
 
 
-	     var columns = [ ['OSX'],
-		          ['Chrome','Firefox','Safari'],
-		          ['BlankCanvas','JavaScript','Ratio'] ];
+	     var columns = [ systems,
+		             browsers,
+		           ['BlankCanvas','JavaScript','Ratio'] ];
 
-	  			    
 	     var rowsMap = {};		    
 
 	     $.each(expand(columns),function(colIx,colVal) {
@@ -133,9 +136,9 @@
 	  }			   
 
 	  function main() {
-	     $.each(['OSX'],function(ix,os) {
-  	        $.each(['Chrome','Firefox','Safari'],function(ix,browser) {
-  	           $.each(['BlankCanvas','JavaScript'],function(ix,sys) {
+	     $.each(systems,function(ix,os) {
+  	        $.each(browsers,function(ix,browser) {
+  	           $.each(duts,function(ix,sys) {
  		       loadResult([os,browser,sys]);
 	           });
                 })
@@ -149,7 +152,6 @@
         </script>
     </head>
     <body>
-      Hello
       <table id="tab" border="1">
       </table>
     </body>
