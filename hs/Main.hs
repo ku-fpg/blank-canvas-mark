@@ -12,7 +12,7 @@ import qualified CirclesUniformSize
 import qualified FillText
 import qualified Image
 import qualified IsPointInPath
--- import qualified Life
+--import qualified Life -- No JS version
 import qualified MeasureText
 import qualified Rave
 import qualified StaticAsteroids
