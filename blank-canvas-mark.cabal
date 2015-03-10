@@ -27,8 +27,9 @@ executable blank-canvas-mark
                        Rave
                        
                        Paths_blank_canvas_mark
+-- test a specific version of blank-canvas
   build-depends:       base         >= 4.5  && < 4.8,
-                       blank-canvas >= 0.5  && < 0.6,
+                       blank-canvas == 0.5.0.1, 
                        criterion    >= 0.4.1,
                        filepath,
                        random       >= 1.0  && < 1.2,
