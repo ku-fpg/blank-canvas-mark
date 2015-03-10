@@ -1,0 +1,10 @@
+Name,Mean
+Bezier,0.17487
+CirclesRandomSize,0.35405
+CirclesUniformSize,0.31726
+FillText,0.07943
+ImageMark,0.07101
+StaticAsteroids,0.04625
+IsPointInPath,0.00804
+MeasureText,0.01824
+Rave,0.02193
