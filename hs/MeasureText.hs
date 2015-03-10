@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings, ParallelListComp #-}
 module MeasureText (benchmark, summary) where
 
-import           Control.Applicative
 import           Control.Monad
 
 import qualified Data.Text as T
@@ -15,14 +14,21 @@ import           Utils
 
 benchmark :: CanvasBenchmark
 benchmark ctx = do
-    xs <- replicateM numWords $ randomXCoord ctx
-    ys <- replicateM numWords $ randomYCoord ctx
-    ws <- cycle <$> replicateM numWords randomWord
-    send' ctx $ sequence_ [ showText (x, y) word
-                             | x <- xs
-                             | y <- ys
-                             | word <- ws
-                             ]
+    ws <- replicateM numWords randomWord
+    wds <- send ctx $ do
+        fillStyle("black")
+	font("10pt Calibri")
+	sequence [ measureText word
+                 | word <- ws
+                 ]
+    x <- randomXCoord ctx
+    y <- randomYCoord ctx
+
+    send' ctx $ do
+       fillStyle("black");
+       font("10pt Calibri");
+       fillText(T.pack $ show $ sum [ v | TextMetrics v <- wds ], x, y);
+    return ()
 
 summary :: String
 summary = "MeasureText"
@@ -34,9 +40,3 @@ numWords = 100
 randomWord :: IO Text
 randomWord = fmap T.pack . replicateM 4 $ randomRIO ('a', 'z')
 
-showText :: Point -> Text -> Canvas ()
-showText (x, y) txt = do
-    fillStyle("black");
-    font("10pt Calibri");
-    fillText(txt, x, y);
-    void $ measureText txt
