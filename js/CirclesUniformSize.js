@@ -2,7 +2,7 @@ function CirclesUniformSize(num, ctx) {
     var x;
     var y;
     var col;
-    for (i = 0; i < num * 10; i++) {
+    for (i = 0; i < num * 1; i++) {
         x = Math.floor(Math.random() * canvas.width);
         y = Math.floor(Math.random() * canvas.height);
         switch (i % 3) {

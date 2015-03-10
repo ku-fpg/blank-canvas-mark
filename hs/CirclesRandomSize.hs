@@ -23,7 +23,7 @@ summary :: String
 summary = "CirclesRandomSize"
 
 numCircles :: Int
-numCircles = 1000 * 10
+numCircles = 1000 * 1
 
 radiusMin, radiusMax :: Double
 radiusMin  = 1

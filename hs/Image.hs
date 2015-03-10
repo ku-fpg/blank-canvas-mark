@@ -46,6 +46,6 @@ drawTheImage (x,y,w,h) theta img = do
     beginPath();
     save();
     rotate(theta);
-    drawImageSize(img, x, y, w, h);
+    drawImageSize(img, x - (w/2), y - (w/2), w, h);
     closePath();
     restore();

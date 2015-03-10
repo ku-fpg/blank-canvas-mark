@@ -20,7 +20,7 @@ summary :: String
 summary = "CirclesUniformSize"
 
 numCircles :: Int
-numCircles = 1000 * 10
+numCircles = 1000 * 1
 
 showBall :: Point -> Text -> Canvas ()
 showBall (x, y) col = do

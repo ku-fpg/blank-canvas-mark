@@ -4,7 +4,7 @@ function CirclesRandomSize(num, ctx) {
     var col;
     var RadiusMin = 1;
     var RadiusMax = 50;
-    for (i = 0; i < num * 10; i++) {
+    for (i = 0; i < num * 1; i++) {
         x = Math.floor(Math.random() * canvas.width);
         y = Math.floor(Math.random() * canvas.height);
         r = Math.floor(Math.random() * (RadiusMax - RadiusMin + 1) + RadiusMin);

@@ -32,9 +32,9 @@ benchmarks = [ Bezier.benchmark
              , Image.benchmark
 --             , Life.benchmark
              , StaticAsteroids.benchmark
+             , Rave.benchmark
              , IsPointInPath.benchmark
              , MeasureText.benchmark
-             , Rave.benchmark
              ]
 
 benchSummaries :: [String]
@@ -45,9 +45,9 @@ benchSummaries = [ Bezier.summary
                  , Image.summary
 --                 , Life.summary
                  , StaticAsteroids.summary
+                 , Rave.summary
                  , IsPointInPath.summary
                  , MeasureText.summary
-                 , Rave.summary
                  ]
 
 runBenchmark :: IO ()
