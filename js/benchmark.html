@@ -72,9 +72,11 @@
             function time(functions, trials, context) {
                 // build a recursive stack of rendering calls separated by timeouts
 	        var start = 0;
+	        var times = [];
+		var start = window.performance.now();
                 (function loop(trials, trial, functions, func_num, context) {
                     if (trials == trial) { 
-	              start = new Date().getTime(); 
+	              times = [];
 	            }
                     setTimeout(function() {
                         if (trial != 0 && func_num < functions.length) {
@@ -85,12 +87,23 @@
                                 }
       	    		        }
       	                    k(function() {
+   			        var end = window.performance.now();
+				times.push(end - start);
+				start = end;
                                 loop(trials, trial - 1, functions, func_num, context);
       	                    });
                         } else if (trial == 0 && func_num < functions.length) {
-                            var end = new Date().getTime();
-			    total = end - start;			  
-                            output_csv.push(functions[func_num].name + "," + total / (trials * 1000));
+			    times = times.sort(function(a,b) { return b - a; });
+		            var ignore = 20; // ignore the top and bottom 10%
+			    var useful = trials - ignore;	 
+//			    console.log(times,trials);				    
+			    times.splice(0,ignore / 2);
+			    times.splice(useful,ignore / 2);
+//			    console.log(times);				    
+			    var total = times.reduce(function(a, b) {  return a + b; })
+			    var avr = total / times.length;
+//			    console.log(total,avr,times.length);			    
+                            output_csv.push(functions[func_num].name + "," + avr / 1000);
                             
                             loop(trials, trials, functions, func_num + 1, context);
                         } else if (func_num == functions.length) {
