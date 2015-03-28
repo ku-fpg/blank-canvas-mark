@@ -1,6 +1,9 @@
+{-# LANGUAGE CPP #-}
 module Utils where
 
-import Control.Applicative
+#if !(MIN_VERSION_base(4,8,0))
+import Data.Functor ((<$>))
+#endif
 import Graphics.Blank
 import System.Random
 

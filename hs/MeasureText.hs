@@ -17,8 +17,8 @@ benchmark ctx = do
     ws <- replicateM numWords randomWord
     wds <- send ctx $ do
         fillStyle("black")
-	font("10pt Calibri")
-	sequence [ measureText word
+        font("10pt Calibri")
+        sequence [ measureText word
                  | word <- ws
                  ]
     x <- randomXCoord ctx

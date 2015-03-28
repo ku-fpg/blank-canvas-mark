@@ -1,7 +1,9 @@
-{-# LANGUAGE OverloadedStrings, ParallelListComp #-}
+{-# LANGUAGE CPP, OverloadedStrings, ParallelListComp #-}
 module IsPointInPath (benchmark, summary) where
 
+#if !(MIN_VERSION_base(4,8,0))
 import Control.Applicative
+#endif
 import Control.Monad
 
 import Graphics.Blank

@@ -1,9 +1,11 @@
-{-# LANGUAGE OverloadedStrings, ParallelListComp #-}
+{-# LANGUAGE CPP, OverloadedStrings, ParallelListComp #-}
 module FillText (benchmark, summary) where
 
-import           Control.Applicative
 import           Control.Monad
 
+#if !(MIN_VERSION_base(4,8,0))
+import           Data.Functor ((<$>))
+#endif
 import qualified Data.Text as T
 import           Data.Text (Text)
 
