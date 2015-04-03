@@ -3,6 +3,9 @@ module Main (main) where
 import Criterion.Main (defaultMain, bench, nfIO)
 import Paths_blank_canvas_mark
 import Graphics.Blank
+import Data.Maybe (isJust)
+import Control.Applicative ((<$>))
+import System.Environment (lookupEnv)
 
 -------------------------------------------------------------------------------
 
@@ -53,7 +56,16 @@ benchSummaries = [ Bezier.summary
 runBenchmark :: IO ()
 runBenchmark = do
     dat <- getDataDir
+    let c0 = 3000 { root = dat }
+    remote <- isJust <$> lookupEnv "BLANK_REMOTE"
+    let c1 = if remote 
+             then c0 { middleware = [] }
+             else c0
+    wk <- isJust <$> lookupEnv "BLANK_WEAK"
+    let c2 = if wk
+             then c1 { weak = True }
+             else c1
     putStrLn $ "Tests: " ++ unwords benchSummaries
-    blankCanvas 3000 { root = dat, middleware = [] } $ \ ctx -> do
+    blankCanvas c2 $ \ ctx -> do
         defaultMain . map (\(b, s) -> bench s . nfIO $ b ctx) $ zip benchmarks benchSummaries
         putStrLn "done"
