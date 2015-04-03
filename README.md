@@ -53,7 +53,7 @@ Field | Values | Notes
 test     | "blank-canvas-mark"         | Name of test set
 os       | "OSX" or "Linux"            | OS test run on
 browser  | "Chrome" or "Firefox"       | 
-platform | "Blank Canvas"              | "JavaScript"
+platform | "Blank Canvas" or "JavaScript" | 
 options  | "weak" and/or "web-sockets" | Optional 
 name     | "Bezier", ...               | Name of specific benchmark
 value    | numeric value for this test | The data point
