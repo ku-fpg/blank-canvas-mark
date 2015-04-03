@@ -20,6 +20,18 @@ OR
 
 
 
+### Environment
+
+
+To use a weak remote monad
+
+    $ BLANK_WEAK=1 ./dist/build/blank-canvas-mark/blank-canvas-mark 
+
+To create a version of the benchmark that be be used across networks
+
+   $ BLANK_REMOTE=1 ./dist/build/blank-canvas-mark/blank-canvas-mark 
+
+
 ## To run JavaScript
 
 JavaScript automatically defaults to a canvas of 800x600
