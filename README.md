@@ -48,7 +48,7 @@ We store our results internally as json records. For each point, we use the foll
 
 ##### Required
 
-Field | Values |
+Field | Values | Notes
 ------|--------|------
 test     | "blank-canvas-mark"         | Name of test set
 os       | "OSX" or "Linux"            | OS test run on
