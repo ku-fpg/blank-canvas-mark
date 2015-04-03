@@ -68,7 +68,7 @@ browser  | "Chrome" or "Firefox"       |
 platform | "Blank Canvas" or "JavaScript" | 
 options  | "weak" and/or "web-sockets" | Optional 
 name     | "Bezier", ...               | Name of specific benchmark
-value    | numeric value for this test | The data point, a mean
+time     | (clock) runtime             | The data point, a mean
 ub / lb  |  upper and lower bound on mean | 
 confidence | 0.95                      | confidence in the mean
 hash     | "ABC123"                    | Hash of specific device under test
