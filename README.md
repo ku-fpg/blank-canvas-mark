@@ -42,4 +42,25 @@ To run a single test, use URL with dut
     $ python -m SimpleHTTPServer
     $ open http://localhost:8000/summary/results.html
 
+## Results format
+
+We store our results internally as json records. For each point, we use the following format.
+
+##### Required
+
+Field | Values |
+------|--------|------
+test     | "blank-canvas-mark"         | Name of test set
+os       | "OSX" or "Linux"            | OS test run on
+browser  | "Chrome" or "Firefox"       | 
+platform | "Blank Canvas"              | "JavaScript"
+options  | "weak" and/or "web-sockets" | Optional 
+name     | "Bezier", ...               | Name of specific benchmark
+value    | numeric value for this test | The data point
+
+##### Optional
+
+ * `_id`: optional unique id for each line
+ * `report`: (individual report from criterion)
+
 
