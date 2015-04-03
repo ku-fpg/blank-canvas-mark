@@ -62,13 +62,20 @@ We store our results internally as json records. For each point, we use the foll
 
 Field | Values | Notes
 ------|--------|------
-test     | "blank-canvas-mark"         | Name of test set
+test     | "blank-canvas-mark"         | Name of test set; required.
 os       | "OSX" or "Linux"            | OS test run on
 browser  | "Chrome" or "Firefox"       | 
 platform | "Blank Canvas" or "JavaScript" | 
 options  | "weak" and/or "web-sockets" | Optional 
 name     | "Bezier", ...               | Name of specific benchmark
-value    | numeric value for this test | The data point
+value    | numeric value for this test | The data point, a mean
+ub / lb  |  upper and lower bound on mean | 
+confidence | 0.95                      | confidence in the mean
+hash     | "ABC123"                    | Hash of specific device under test
+raw      | {...}                       | Raw results to reproduce quality of mean
+outliers | {...}                       | Quality of test data
+
+The hash it there so we can compare like with like.
 
 ##### Optional
 
