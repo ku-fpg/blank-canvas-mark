@@ -18,6 +18,9 @@ import Control.Applicative
 import Data.Monoid
 import Control.Monad
 import System.IO (stdin)
+import Statistics.Resampling.Bootstrap -- as B
+import System.Directory
+import System.Environment
 
 data SingleTest = SingleTest String [(Double,Int)]
         deriving Show
@@ -34,33 +37,31 @@ instance FromJSON SingleTest where
 
 main = do
    initializeTime -- you need this
-   inp <- BS.hGetContents stdin
-   let Just [SingleTest nm res] = decode inp
-   let config = defaultConfig { verbosity = Verbose, reportFile = return "foo.html" }
-   r <- withConfig config $ do
-           r1 <- analyseOne 0 nm $ V.fromList $ [ measured { measTime = t, measIters = fromIntegral i } | (t,i) <- res ]
-           report [r1]
-           return r1
-   print "called"
-{-   
-   
-   let m v i = measured { measTime = v * 1.01 * fromIntegral i, measIters = i,  measCpuTime = v + 1.0, measCycles = 1000 }
-   let n v i = measured { measTime = v * sqrt (fromIntegral i), measIters = i }
-   print "calling"
-   r <- withConfig config $ do
-           r1 <- analyseOne 0 "foo" $ V.fromList $ [m 4 i | (i,v) <- zip [1..] [0..8]]
-           r2 <- analyseOne 1 "foo2" $ V.fromList $ [m 3 i | (i,v) <- zip [1..] [0..100]]
-           r3 <- analyseOne 2 "foo3" $ V.fromList $ [n 5 i | (i,v) <- zip [1..] [0..100]]
-           report [r1,r2,r3]
-           return r1
-   print "called"
-   print r
-   BS.putStrLn $ encode r
--}
+   [inpFile,outFile] <- getArgs
+   inp <- BS.readFile inpFile
+   let Just rawTestResults = decode inp
+   let config = defaultConfig { verbosity = Verbose, reportFile = return "tmp.html", csvFile = return outFile }
+   fileExists <- doesFileExist  outFile
+   when fileExists $ removeFile outFile
+   withConfig config $ do
+           writeCsv ["Name","Mean","MeanLB","MeanUB","Stddev","StddevLB", "StddevUB"::String]
+           rs <- sequence
+                [ analyseOne 0 nm $ V.fromList $ [ measured { measTime = t, measIters = fromIntegral i } | (t,i) <- res ]
+                | SingleTest nm res <- rawTestResults
+                ]
+           report rs
+           return ()
 
 analyseOne :: Int -> String -> V.Vector Measured -> Criterion Report
 analyseOne i desc meas = do
   erp <- runExceptT $ analyseSample i desc meas
   case erp of
     Left err -> printError "*** Error: %s\n" err
-    Right rpt -> return rpt
+    Right rpt@Report{..} -> do
+      let SampleAnalysis{..} = reportAnalysis
+          OutlierVariance{..} = anOutlierVar
+      writeCsv (desc,
+              estPoint anMean, estLowerBound anMean, estUpperBound anMean,
+              estPoint anStdDev, estLowerBound anStdDev,
+              estUpperBound anStdDev)
+      return rpt
