@@ -11,16 +11,22 @@ import Graphics.Blank
 import Utils
 
 benchmark :: CanvasBenchmark
-benchmark ctx = do
+benchmark ctx = sequence_ [ internal ctx | _ <- [1..rounds]]
+
+internal :: CanvasBenchmark
+internal ctx = do
     pathX1 <- randomXCoord ctx
     pathX2 <- randomXCoord ctx
     pathY1 <- randomYCoord ctx
     pathY2 <- randomYCoord ctx
     points <- replicateM pointsPerPath $ (,) <$> randomXCoord ctx <*> randomYCoord ctx
-    send' ctx $ sequence_ [ isInPath (pathX1, pathX2, pathY1, pathY2) points]
+    send ctx $ sequence_ [ isInPath (pathX1, pathX2, pathY1, pathY2) points ]
 
 summary :: String
 summary = "IsPointInPath"
+
+rounds :: Int
+rounds = 100
 
 pointsPerPath :: Int
 pointsPerPath = 10

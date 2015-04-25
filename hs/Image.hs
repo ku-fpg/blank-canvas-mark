@@ -34,7 +34,7 @@ summary :: String
 summary = "ImageMark"
 
 numImages :: Int
-numImages = 100
+numImages = 1000
 
 image :: Text
 image = T.pack $ "/images" </> "cc" <.> "gif"

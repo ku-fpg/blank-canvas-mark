@@ -28,8 +28,8 @@ main :: IO ()
 main = runBenchmark
 
 benchmarks :: [CanvasBenchmark]
-benchmarks = [ Bezier.benchmark
-             , CirclesRandomSize.benchmark
+benchmarks = [ {-Bezier.benchmark
+             , -}CirclesRandomSize.benchmark
              , CirclesUniformSize.benchmark
              , FillText.benchmark
              , Image.benchmark
@@ -41,8 +41,8 @@ benchmarks = [ Bezier.benchmark
              ]
 
 benchSummaries :: [String]
-benchSummaries = [ Bezier.summary
-                 , CirclesRandomSize.summary
+benchSummaries = [ {- Bezier.summary
+                 , -} CirclesRandomSize.summary
                  , CirclesUniformSize.summary
                  , FillText.summary
                  , Image.summary

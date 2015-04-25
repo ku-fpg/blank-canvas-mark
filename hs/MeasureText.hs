@@ -34,9 +34,11 @@ summary :: String
 summary = "MeasureText"
 
 numWords :: Int
-numWords = 100
+numWords = 1000
 
 -- Randomly creates a four-letter, lowercase word
 randomWord :: IO Text
-randomWord = fmap T.pack . replicateM 4 $ randomRIO ('a', 'z')
+randomWord = do
+--  sz <- randomRIO (1,10)
+  fmap T.pack . replicateM 10 $ randomRIO ('a', 'z')
 
