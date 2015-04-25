@@ -10,14 +10,14 @@ benchmark :: CanvasBenchmark
 benchmark ctx = do
   xs  <- replicateM numAsteroids $ randomXCoord ctx
   ys  <- replicateM numAsteroids $ randomYCoord ctx
-  dxs <- replicateM numAsteroids $ randomRIO (-10, 15)
-  dys <- replicateM numAsteroids $ randomRIO (-10, 15)
+  dxs <- replicateM numAsteroids $ randomRIO (-15, 15)
+  dys <- replicateM numAsteroids $ randomRIO (-15, 15)
   send' ctx $ do
              clearCanvas
              sequence_ [showAsteroid (x,y) (mkPts (x,y) ds)
                        | x <- xs
                        | y <- ys
-                       | ds <- cycle $ splitEvery 10 $ zip dxs dys
+                       | ds <- cycle $ splitEvery 6 $ zip dxs dys
                        ]
 
 summary :: String
@@ -35,10 +35,7 @@ showAsteroid (x,y) pts = do
   stroke()
 
 mkPts :: Point -> [(Double, Double)] -> [Point]
-mkPts (x,y) [] = [(x,y)]
-mkPts (x,y) ((dx, dy) : ds)= (x'+dx,y'+dy) : rest where
-  rest = mkPts (x,y) ds
-  (x',y') = head rest
+mkPts (x,y) xs = [ (x+x',y+y') | (x',y') <- xs ]
 
 splitEvery :: Int -> [a] -> [[a]]
 splitEvery n = takeWhile (not.null) . map (take n) . iterate (drop n) -- borrowed from Magnus Kronqvist on stack overflow
