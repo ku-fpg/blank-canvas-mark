@@ -1,5 +1,5 @@
 function Rave(num, ctx) {
-    var numGradients = 100;
+    var numGradients = 300;
     var numColors = 6;
     var cols = [];
     var w = canvas.width;

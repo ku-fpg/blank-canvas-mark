@@ -13,3 +13,6 @@ build::
 	cabal configure
 	cabal build
 	cabal install
+
+results::
+	echo 

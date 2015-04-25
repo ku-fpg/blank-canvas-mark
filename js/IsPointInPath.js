@@ -1,10 +1,12 @@
 function IsPointInPath(num, ctx) {
     var pointsPerPath = 10;
 
-    var x1 = Math.floor(Math.random() * canvas.width);
-    var x2 = Math.floor(Math.random() * canvas.width);
-    var y1 = Math.floor(Math.random() * canvas.height);
-    var y2 = Math.floor(Math.random() * canvas.height);
+    for(i = 0; i < num / 10; i++) {
+
+    var x1 = Math.floor(Math.random() * canvas.width / 2);
+    var x2 = Math.floor(Math.random() * canvas.width / 2);
+    var y1 = Math.floor(Math.random() * canvas.height / 2);
+    var y2 = Math.floor(Math.random() * canvas.height / 2);
 
     ctx.strokeStyle="blue";
     ctx.beginPath();
@@ -28,4 +30,5 @@ function IsPointInPath(num, ctx) {
         ctx.closePath();
         ctx.fill();
     } 
+    }
 }

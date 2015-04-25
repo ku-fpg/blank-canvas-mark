@@ -5,7 +5,7 @@ function ImageMark(num, ctx) {  return function (done) {
 
     img.onload = function () {
 	var i = 0;
-        while(i < 100)  {
+        while(i < num)  {
 	    var x = Math.floor(Math.random() * canvas.width);
 	    var y = Math.floor(Math.random() * canvas.height);
 	    var w = Math.floor(Math.random() * canvas.width);

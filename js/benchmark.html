@@ -17,7 +17,7 @@
             var browser;
             var times = [];
             var total = 0;
-            var output_csv = ["Name,Mean"];
+            var output_csv = [];
 
             var urlQuery = {};
             // From http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
@@ -51,7 +51,9 @@
                 canvas.width = 800;  // window.innerWidth;
                 canvas.height = 600; // window.innerHeight;
                 var functions = [
-                    Bezier,
+	    //         This generates really strange results. To good to be true. I suspect 
+	    //         it is because of a "bad" random bezier that causes extra (exceptional) time.
+	    //      Bezier,  
                     CirclesRandomSize, 
                     CirclesUniformSize,
                     FillText,
@@ -65,8 +67,17 @@
 	          functions = [ eval(urlQuery.dut)  ];
 
 	        }
-                time(functions, 100, context);
+                time(functions, 105, context);
             }
+
+	    function runme(functions,func_num,context) {
+	       context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+	       if (functions[func_num] != null) {
+                 return functions[func_num](1000, context);
+	       } else {
+                 return null;
+	       }
+	    }
 
             // execute benchmark functions, time
             function time(functions, trials, context) {
@@ -76,49 +87,75 @@
 		var start = window.performance.now();
                 (function loop(trials, trial, functions, func_num, context) {
                     if (trials == trial) { 
+	              runme(functions,func_num,context); // run twice to warm things up
+	              runme(functions,func_num,context);
 	              times = [];
+	              roundCounter = 1;  // start at 1
+	              rounds = roundCounter;
 	            }
                     setTimeout(function() {
                         if (trial != 0 && func_num < functions.length) {
-                            var k = functions[func_num](1000, context);
+			    var k = runme(functions,func_num,context);
       	                    if (typeof k != "function") {
       	                        k = function(r) { 
                                     r(); 
                                 }
       	    		        }
       	                    k(function() {
-   			        var end = window.performance.now();
-				times.push(end - start);
-				start = end;
-                                loop(trials, trial - 1, functions, func_num, context);
+				rounds--;		     
+			        function next() {
+ 			          loop(trials, trial - 1, functions, func_num, context);
+                                }
+				if (rounds == 0) {		     
+   				      var end = window.performance.now();
+				      times.push(end - start);
+//  				      console.log(end - start,roundCounter);		     
+				      start = end;
+				      roundCounter++;
+				      rounds = roundCounter;	   
+				      next();
+				} else {
+	                          next();
+				}
+
       	                    });
                         } else if (trial == 0 && func_num < functions.length) {
+			    times = times.map(function(a) { return a/1000; });
+//			    console.log(times,trials);				    
+			    var txt = "{\"name\":\"" + functions[func_num].name + "\",\n"; 
+			    txt += " \"results\":[" + times.join() + "]\n";
+			    txt += "}";
+                            output_csv.push(txt);
+//			    console.log(txt);								
+
+//                            output_csv.push("{\"name\":\"functions[func_num].name + "\n" + avr / 1000);
+/*
 			    times = times.sort(function(a,b) { return b - a; });
 		            var ignore = 20; // ignore the top and bottom 10%
 			    var useful = trials - ignore;	 
-//			    console.log(times,trials);				    
+			    console.log(times,trials);				    
 			    times.splice(0,ignore / 2);
 			    times.splice(useful,ignore / 2);
-//			    console.log(times);				    
+			    console.log(times);				    
 			    var total = times.reduce(function(a, b) {  return a + b; })
 			    var avr = total / times.length;
-//			    console.log(total,avr,times.length);			    
+			    console.log(total,avr,times.length);			    
                             output_csv.push(functions[func_num].name + "," + avr / 1000);
-                            
+*/                            
                             loop(trials, trials, functions, func_num + 1, context);
                         } else if (func_num == functions.length) {
                             // create output csv file 
-                            var csvString = output_csv.join("\r\n");
+                            var csvString = "[" + output_csv.join(",\n") + "]\n";
+//			    console.log(csvString);
                             var a = document.createElement("a");
-                            
                             a.href = 'data:attachment/csv;charset=utf-8,' + escape(csvString);
                             a.target = '_blank';
-                            a.download = os + "-" + browser + "-JavaScript.csv";
+                            a.download = os + "-" + browser + "-JavaScript.json";
                             a.innerHTML = "Click to download file.";
                             document.body.appendChild(a);
                             a.click();
                             document.body.removeChild(a);
-			    alert(csvString);
+//			    alert(csvString);
                         } else
                             return;
                         }, 0);
