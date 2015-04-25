@@ -46,8 +46,8 @@ main = do
    withConfig config $ do
            writeCsv ["Name","Mean","MeanLB","MeanUB","Stddev","StddevLB", "StddevUB"::String]
            rs <- sequence
-                [ analyseOne 0 nm $ V.fromList $ [ measured { measTime = t, measIters = fromIntegral i } | (t,i) <- res ]
-                | SingleTest nm res <- rawTestResults
+                [ analyseOne n nm $ V.fromList $ [ measured { measTime = t, measIters = fromIntegral i } | (t,i) <- res ]
+                | (n,SingleTest nm res) <- [0..] `zip` rawTestResults
                 ]
            report rs
            return ()
