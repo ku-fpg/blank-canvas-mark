@@ -28,7 +28,7 @@ executable blank-canvas-mark
                        
                        Paths_blank_canvas_mark
 -- test a specific version of blank-canvas
-  build-depends:       base         >= 4.5   && < 5,
+  build-depends:       base         >= 4.6   && < 5,
                        base-compat  >= 0.8.1 && < 1,
                        blank-canvas == 0.5.0.1, 
                        criterion    >= 1.1   && < 1.2,
@@ -43,7 +43,7 @@ executable blank-canvas-mark
 executable diet-criterion
   main-is:             Diet.hs
   build-depends:       aeson               >= 0.8,
-                       base                >= 4.5   && < 5,
+                       base                >= 4.6   && < 5,
                        base-compat         >= 0.8.1 && < 1,
                        bytestring          >= 0.10.4,
                        criterion           >= 1.1   && < 1.2,
