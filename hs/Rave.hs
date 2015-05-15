@@ -1,9 +1,7 @@
-{-# LANGUAGE CPP, ParallelListComp #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE ParallelListComp #-}
 module Rave (benchmark, summary) where
 
-#if !(MIN_VERSION_base(4,8,0))
-import           Control.Applicative
-#endif
 import           Control.Monad
 
 import           Data.Key (forWithKey_)
@@ -12,6 +10,8 @@ import           Data.List (genericLength)
 import           Graphics.Blank
 import qualified Graphics.Blank.Style as S
 import           Graphics.Blank.Style (CanvasColor)
+
+import           Prelude.Compat
 
 import           System.Random
 

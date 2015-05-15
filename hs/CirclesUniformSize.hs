@@ -1,4 +1,5 @@
-{-# LANGUAGE OverloadedStrings, ParallelListComp #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ParallelListComp #-}
 module CirclesUniformSize (benchmark, summary) where
 
 import Control.Monad

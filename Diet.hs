@@ -1,26 +1,32 @@
-{-# LANGUAGE OverloadedStrings, BangPatterns, DeriveDataTypeable, RecordWildCards #-}
+{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
 
 module Main where
 
-import Data.Text (Text)
-import Criterion.Analysis
-import Criterion.Monad
-import Criterion.Types
-import Criterion.Main
-import Criterion.Report
-import Criterion.Measurement (measured, initializeTime)
-import Criterion.IO.Printf
-import Control.Monad.Trans.Except
-import Data.Aeson
+import           Control.Monad
+import           Control.Monad.Trans.Except
+
+import           Criterion.Analysis
+import           Criterion.IO.Printf
+import           Criterion.Main
+import           Criterion.Measurement (measured, initializeTime)
+import           Criterion.Monad
+import           Criterion.Report
+import           Criterion.Types
+
+import           Data.Aeson
 import qualified Data.ByteString.Lazy as BS
 import qualified Data.Vector as V
-import Control.Applicative
-import Data.Monoid
-import Control.Monad
-import System.IO (stdin)
-import Statistics.Resampling.Bootstrap -- as B
-import System.Directory
-import System.Environment
+
+import           Prelude.Compat
+
+import           Statistics.Resampling.Bootstrap -- as B
+
+import           System.Directory
+import           System.Environment
 
 data SingleTest = SingleTest String [(Double,Int)]
         deriving Show
@@ -33,8 +39,7 @@ instance FromJSON SingleTest where
       where f res = [ (t,i) | (Just t,i) <- res `zip` [1..] ]
  parseJSON _ = mzero
 
-
-
+main :: IO ()
 main = do
    initializeTime -- you need this
    [inpFile,outFile] <- getArgs

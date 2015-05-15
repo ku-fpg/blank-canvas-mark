@@ -1,15 +1,16 @@
-{-# LANGUAGE CPP, OverloadedStrings, ParallelListComp #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ParallelListComp #-}
 module FillText (benchmark, summary) where
 
 import           Control.Monad
 
-#if !(MIN_VERSION_base(4,8,0))
-import           Data.Functor ((<$>))
-#endif
 import qualified Data.Text as T
 import           Data.Text (Text)
 
 import           Graphics.Blank
+
+import           Prelude.Compat
 
 import           System.Random
 

@@ -1,13 +1,10 @@
-{-# LANGUAGE CPP, OverloadedStrings #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Bezier (benchmark, summary) where
 
-#if !(MIN_VERSION_base(4,8,0))
-import Control.Applicative
-#endif
 import Control.Monad
-
 import Graphics.Blank
-
+import Prelude.Compat
 import Utils
 
 benchmark :: CanvasBenchmark

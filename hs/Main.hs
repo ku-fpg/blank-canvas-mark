@@ -1,15 +1,16 @@
+{-# LANGUAGE NoImplicitPrelude #-}
 module Main (main) where
 
 import Criterion.Main (defaultMain, bench, nfIO)
-import Paths_blank_canvas_mark
-import Graphics.Blank
 import Data.Maybe (isJust)
-import Control.Applicative ((<$>))
+import Graphics.Blank
+import Paths_blank_canvas_mark
+import Prelude.Compat
 import System.Environment (lookupEnv)
 
 -------------------------------------------------------------------------------
 
-import qualified Bezier
+-- import qualified Bezier
 import qualified CirclesRandomSize
 import qualified CirclesUniformSize
 import qualified FillText

@@ -1,13 +1,11 @@
-{-# LANGUAGE CPP, OverloadedStrings, ParallelListComp #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ParallelListComp #-}
 module IsPointInPath (benchmark, summary) where
 
-#if !(MIN_VERSION_base(4,8,0))
-import Control.Applicative
-#endif
 import Control.Monad
-
 import Graphics.Blank
-
+import Prelude.Compat
 import Utils
 
 benchmark :: CanvasBenchmark

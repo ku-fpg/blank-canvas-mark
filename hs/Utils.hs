@@ -1,10 +1,8 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 module Utils where
 
-#if !(MIN_VERSION_base(4,8,0))
-import Data.Functor ((<$>))
-#endif
 import Graphics.Blank
+import Prelude.Compat
 import System.Random
 
 type CanvasBenchmark = DeviceContext -> IO ()

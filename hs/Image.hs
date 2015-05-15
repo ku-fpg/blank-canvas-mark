@@ -1,4 +1,5 @@
-{-# LANGUAGE OverloadedStrings, ParallelListComp #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ParallelListComp #-}
 module Image (benchmark, summary) where
 
 import           Control.Monad
