@@ -11,6 +11,7 @@
         <script src="Rave.js"></script>
         <script src="IsPointInPath.js"></script>
         <script src="MeasureText.js"></script>
+        <script src="ToDataURL.js"></script>
         <!-- Benchmark execution and timing -->
         <script>
             var os;
@@ -46,10 +47,6 @@
                     os = "UnknownOS";
                 }
 
-                canvas = document.getElementById("cnv");
-                var context = canvas.getContext("2d");
-                canvas.width = 800;  // window.innerWidth;
-                canvas.height = 600; // window.innerHeight;
                 var functions = [
 	    //         This generates really strange results. To good to be true. I suspect 
 	    //         it is because of a "bad" random bezier that causes extra (exceptional) time.
@@ -62,15 +59,17 @@
                     Rave, 
                     IsPointInPath,
                     MeasureText,
+	            ToDataURL
                 ];
 	        if (urlQuery.dut) {
 	          functions = [ eval(urlQuery.dut)  ];
 
 	        }
-                time(functions, 105, context);
+                time(functions, 105);
             }
 
 	    function runme(functions,func_num,context) {
+	    // Add a new canvas
 	       context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 	       if (functions[func_num] != null) {
                  return functions[func_num](1000, context);
@@ -79,13 +78,32 @@
 	       }
 	    }
 
+	    var context = null;
+	    function resetCanvas() {
+	            document.getElementById("thebody").innerHTML = "<canvas id=\"cnv\" width=\"100\" height=\"100\"></canvas>";
+                    canvas = document.getElementById("cnv");
+                    context = canvas.getContext("2d");
+                    canvas.width = 800;  // window.innerWidth;
+                    canvas.height = 600; // window.innerHeight;
+	    }
+
+
             // execute benchmark functions, time
-            function time(functions, trials, context) {
+            function time(functions, trials) {
+
+
+	        resetCanvas();
+
                 // build a recursive stack of rendering calls separated by timeouts
 	        var start = 0;
 	        var times = [];
 		var start = window.performance.now();
-                (function loop(trials, trial, functions, func_num, context) {
+                (function loop(trials, trial, functions, func_num) {
+
+
+
+
+
                     if (trials == trial) { 
 	              runme(functions,func_num,context); // run twice to warm things up
 	              runme(functions,func_num,context);
@@ -104,7 +122,7 @@
       	                    k(function() {
 				rounds--;		     
 			        function next() {
- 			          loop(trials, trial - 1, functions, func_num, context);
+ 			          loop(trials, trial - 1, functions, func_num);
                                 }
 				if (rounds == 0) {		     
    				      var end = window.performance.now();
@@ -142,7 +160,9 @@
 			    console.log(total,avr,times.length);			    
                             output_csv.push(functions[func_num].name + "," + avr / 1000);
 */                            
-                            loop(trials, trials, functions, func_num + 1, context);
+   		            resetCanvas();
+
+                            loop(trials, trials, functions, func_num + 1);
                         } else if (func_num == functions.length) {
                             // create output csv file 
                             var csvString = "[" + output_csv.join(",\n") + "]\n";
@@ -159,7 +179,7 @@
                         } else
                             return;
                         }, 0);
-                })(trials, trials, functions, 0, context);
+                })(trials, trials, functions, 0);
             }
         </script>
         <style>
@@ -172,7 +192,7 @@
             }
         </style>
     </head>
-    <body onload="main()">
+    <body id="thebody" onload="main()">
         <canvas id="cnv" width="100" height="100"></canvas>
     </body>
 </html>

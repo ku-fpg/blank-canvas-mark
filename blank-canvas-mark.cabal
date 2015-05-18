@@ -24,6 +24,7 @@ executable blank-canvas-mark
                        IsPointInPath
                        Life
                        MeasureText
+                       ToDataURL
                        Rave
                        
                        Paths_blank_canvas_mark

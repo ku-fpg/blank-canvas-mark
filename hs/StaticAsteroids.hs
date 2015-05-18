@@ -1,7 +1,7 @@
 {-# Language ParallelListComp #-}
 module StaticAsteroids (benchmark, summary) where
 
-import Control.Monad
+import Control.Monad hiding (sequence_)
 import Graphics.Blank
 import System.Random
 import Utils

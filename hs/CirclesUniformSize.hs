@@ -2,7 +2,7 @@
 {-# LANGUAGE ParallelListComp #-}
 module CirclesUniformSize (benchmark, summary) where
 
-import Control.Monad
+import Control.Monad hiding (sequence_)
 import Data.Text hiding (count)
 import Graphics.Blank
 import Utils

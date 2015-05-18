@@ -20,6 +20,7 @@ import qualified IsPointInPath
 import qualified MeasureText
 import qualified Rave
 import qualified StaticAsteroids
+import qualified ToDataURL
 
 import Utils
 
@@ -39,6 +40,7 @@ benchmarks = [ {-Bezier.benchmark
              , Rave.benchmark
              , IsPointInPath.benchmark
              , MeasureText.benchmark
+             , ToDataURL.benchmark
              ]
 
 benchSummaries :: [String]
@@ -52,6 +54,7 @@ benchSummaries = [ {- Bezier.summary
                  , Rave.summary
                  , IsPointInPath.summary
                  , MeasureText.summary
+                 , ToDataURL.summary
                  ]
 
 runBenchmark :: IO ()

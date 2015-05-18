@@ -2,7 +2,7 @@
 module Life (benchmark, summary) where
 
 import Control.Concurrent
-import Control.Monad
+import Control.Monad hiding (sequence_)
 
 import Data.List
 import Data.Text (pack)
