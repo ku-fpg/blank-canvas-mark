@@ -2,6 +2,7 @@
 
 test::
 	mkdir -p results/
+	rm -f results/$(SYS)-BlankCanvas.csv
 	./dist/build/blank-canvas-mark/blank-canvas-mark --csv results/$(SYS)-BlankCanvas.csv -o tmp2.html
 
 
