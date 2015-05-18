@@ -2,7 +2,7 @@
 {-# LANGUAGE ParallelListComp #-}
 module Rave (benchmark, summary) where
 
-import           Control.Monad
+import           Control.Monad (replicateM)
 
 import           Data.Key (forWithKey_)
 import           Data.List (genericLength)

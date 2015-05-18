@@ -3,7 +3,7 @@
 {-# LANGUAGE ParallelListComp #-}
 module FillText (benchmark, summary) where
 
-import           Control.Monad
+import           Control.Monad (replicateM)
 
 import qualified Data.Text as T
 import           Data.Text (Text)
