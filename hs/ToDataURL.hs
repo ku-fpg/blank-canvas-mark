@@ -2,27 +2,24 @@
 {-# LANGUAGE ParallelListComp #-}
 module ToDataURL (benchmark, summary) where
 
+import           Control.Monad (replicateM)
 import qualified Data.Text as T
-
 import           Graphics.Blank
-
-import		 Control.Monad (replicateM)
 import           System.Random
-
 import           Utils
 
 benchmark :: CanvasBenchmark
 benchmark ctx = do
-	  rs <-  replicateM numPictures $ randomRIO (0,100)
-	  sequence_ [ send ctx $ picture r
-	      	    | r <- rs
-		    ]
-	  send ctx sync		 
+      rs <- replicateM numPictures $ randomRIO (0,100)
+      sequence_ [ send ctx $ picture r
+                | r <- rs
+                ]
+      send ctx sync 
 
 picture :: Double -> Canvas ()
 picture  x = do
         clearCanvas
-    	beginPath();
+        beginPath();
         moveTo(170 + x, 80);
         bezierCurveTo(130 + x, 100, 130 + x, 150, 230 + x, 150);
         bezierCurveTo(250 + x, 180, 320 + x, 180, 340 + x, 150);

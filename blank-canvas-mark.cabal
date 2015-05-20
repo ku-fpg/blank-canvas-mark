@@ -24,8 +24,8 @@ executable blank-canvas-mark
                        IsPointInPath
                        Life
                        MeasureText
-                       ToDataURL
                        Rave
+                       ToDataURL
                        
                        Paths_blank_canvas_mark
 -- test a specific version of blank-canvas

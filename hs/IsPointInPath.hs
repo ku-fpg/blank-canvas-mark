@@ -3,7 +3,7 @@
 {-# LANGUAGE ParallelListComp #-}
 module IsPointInPath (benchmark, summary) where
 
-import Control.Monad (replicateM)
+import Control.Monad.Compat
 
 import Graphics.Blank
 import Prelude.Compat

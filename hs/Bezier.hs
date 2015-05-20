@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Bezier (benchmark, summary) where
 
-import Control.Monad hiding (sequence_)
+import Control.Monad.Compat
 import Graphics.Blank
 import Prelude.Compat
 import Utils

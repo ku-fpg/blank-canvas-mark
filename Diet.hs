@@ -6,7 +6,7 @@
 
 module Main where
 
-import           Control.Monad (mzero, when)
+import           Control.Monad.Compat
 import           Control.Monad.Trans.Except
 
 import           Criterion.Analysis
