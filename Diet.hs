@@ -1,8 +1,7 @@
-{-# LANGUAGE BangPatterns #-}
 {-# LANGUAGE DeriveDataTypeable #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE NoImplicitPrelude  #-}
+{-# LANGUAGE OverloadedStrings  #-}
+{-# LANGUAGE RecordWildCards    #-}
 
 module Main where
 
@@ -12,18 +11,18 @@ import           Control.Monad.Trans.Except
 import           Criterion.Analysis
 import           Criterion.IO.Printf
 import           Criterion.Main
-import           Criterion.Measurement (measured, initializeTime)
+import           Criterion.Measurement      (initializeTime, measured)
 import           Criterion.Monad
 import           Criterion.Report
 import           Criterion.Types
 
 import           Data.Aeson
-import qualified Data.ByteString.Lazy as BS
-import qualified Data.Vector as V
+import qualified Data.ByteString.Lazy       as BS
+import qualified Data.Vector                as V
 
 import           Prelude.Compat
 
-import           Statistics.Resampling.Bootstrap -- as B
+import           Statistics.Types
 
 import           System.Directory
 import           System.Environment
@@ -66,7 +65,7 @@ analyseOne i desc meas = do
       let SampleAnalysis{..} = reportAnalysis
           OutlierVariance{..} = anOutlierVar
       writeCsv (desc,
-              estPoint anMean, estLowerBound anMean, estUpperBound anMean,
-              estPoint anStdDev, estLowerBound anStdDev,
-              estUpperBound anStdDev)
+              estPoint anMean, estPoint anMean - confIntLDX (estError anMean) , estPoint anMean + confIntUDX (estError anMean),
+              estPoint anStdDev, estPoint anStdDev - confIntLDX (estError anStdDev),
+              estPoint anStdDev + confIntUDX (estError anStdDev))
       return rpt
