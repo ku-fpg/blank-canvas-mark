@@ -9,6 +9,7 @@
 *.chi
 *.chs.h
 *.swp
+.stack-work
 .\#*
 dist
 cabal-dev
