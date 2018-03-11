@@ -1,9 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ParallelListComp #-}
+{-# LANGUAGE ParallelListComp  #-}
 module ToDataURL (benchmark, summary) where
 
-import           Control.Monad (replicateM)
-import qualified Data.Text as T
+import           Control.Monad  (replicateM)
+import qualified Data.Text      as T
 import           Graphics.Blank
 import           System.Random
 import           Utils
@@ -11,10 +11,7 @@ import           Utils
 benchmark :: CanvasBenchmark
 benchmark ctx = do
       rs <- replicateM numPictures $ randomRIO (0,100)
-      sequence_ [ send ctx $ picture r
-                | r <- rs
-                ]
-      send ctx sync 
+      send' ctx $  sequence_ [picture r | r <- rs ]
 
 picture :: Double -> Canvas ()
 picture  x = do
