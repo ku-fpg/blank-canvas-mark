@@ -1,7 +1,7 @@
 name:                blank-canvas-mark
 version:             0.1.0.0
 synopsis:            Benchmarks for blank-canvas
--- description:         
+-- description:
 homepage:            https://github.com/ku-fpg/blank-canvas-mark
 license:             BSD3
 license-file:        LICENSE
@@ -28,13 +28,13 @@ executable blank-canvas-mark
                        ToDataURL
                        StaticAsteroids
                        Utils
-                       
+
                        Paths_blank_canvas_mark
 -- test a specific version of blank-canvas
   build-depends:       base         >= 4.6   && < 5,
                        base-compat  >= 0.8.1 && < 1,
-                       blank-canvas == 0.6.2, 
-                       criterion    >= 1.2  && < 1.3,
+                       blank-canvas == 0.6.2,
+                       criterion    >= 1.2  && < 1.5,
                        filepath,
                        open-browser,
                        keys         >= 3.10  && < 4,
@@ -50,7 +50,7 @@ executable diet-criterion
                        base                >= 4.6   && < 5,
                        base-compat         >= 0.8.1 && < 1,
                        bytestring          >= 0.10.4,
-                       criterion           >= 1.2   && < 1.3,
+                       criterion           >= 1.2   && < 1.5,
                        directory           >= 1.2,
                        statistics          >= 0.14,
                        text                >= 1.2,
