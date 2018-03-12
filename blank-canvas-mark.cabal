@@ -1,7 +1,7 @@
 name:                blank-canvas-mark
 version:             0.1.0.0
 synopsis:            Benchmarks for blank-canvas
--- description:
+description:         Benchmarks for @blank-canvas@.
 homepage:            https://github.com/ku-fpg/blank-canvas-mark
 license:             BSD3
 license-file:        LICENSE
@@ -13,6 +13,10 @@ build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
 data-files:          images/cc.gif
+
+source-repository head
+  type:                git
+  location:            https://github.com/ku-fpg/blank-canvas-mark
 
 executable blank-canvas-mark
   main-is:             Main.hs
