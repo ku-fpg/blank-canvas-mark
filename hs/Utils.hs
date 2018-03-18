@@ -18,5 +18,8 @@ randomYCoord ctx = (*height ctx) <$> randomIO
 -- because you need to wait for them to reach the 
 -- graphics pipeline.
 
-send' :: DeviceContext -> Canvas () -> IO ()
-send' c m = do send c $ m >> sync
+send' :: DeviceContext -> Canvas a -> IO a
+send' c m = send c $ do
+               r <- m
+               sync
+               return r
