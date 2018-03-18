@@ -36,10 +36,24 @@ resolver: lts-10.4
 # non-dependency (i.e. a user package), and its test suites and benchmarks
 # will not be run. This is useful for tweaking upstream packages.
 packages:
-- .
+  - '.'
+  - '../blank-canvas/'
+  - '../blank-canvas/wiki-suite/'
+  - '../blank-canvas/examples/'
+  - location:
+      git: 'git@github.com:ku-fpg/remote-monad'
+      commit: '03f2e83'
+    extra-dep: true
+  - location:
+     git: https://github.com/ku-fpg/javascript-bridge
+     commit: 40784dc5259793c8c9a544d052a69b629e2d004e
+    extra-dep: true
+
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
-# extra-deps: []
+extra-deps:
+  - open-browser-0.2.1.0
+  - directory-1.3.2.1
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

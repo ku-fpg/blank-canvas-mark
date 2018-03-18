@@ -36,30 +36,31 @@ executable blank-canvas-mark
                        Paths_blank_canvas_mark
 -- test a specific version of blank-canvas
   build-depends:       base         >= 4.6   && < 5,
-                       base-compat  >= 0.8.1 && < 1,
-                       blank-canvas == 0.6.2,
-                       criterion    >= 1.2  && < 1.5,
+                       base-compat  >= 0.8.1,
+                       blank-canvas == 0.7,
+                       criterion    >= 1.2,
                        filepath,
                        open-browser,
-                       keys         >= 3.10  && < 4,
-                       random       >= 1.0   && < 1.2,
-                       text         >= 0.11  && < 1.3
+                       keys         >= 3.10,
+                       random       >= 1.0, 
+                       text         >= 0.11
   hs-source-dirs:      hs
   default-language:    Haskell2010
   ghc-options:         -Wall -threaded
 
-executable diet-criterion
-  main-is:             Diet.hs
-  build-depends:       aeson               >= 0.8,
-                       base                >= 4.6   && < 5,
-                       base-compat         >= 0.8.1 && < 1,
-                       bytestring          >= 0.10.4,
-                       criterion           >= 1.2   && < 1.5,
-                       directory           >= 1.2,
-                       statistics          >= 0.14,
-                       text                >= 1.2,
-                       transformers        >= 0.2,
-                       transformers-compat >= 0.4,
-                       vector              >= 0.10.9
-  default-language:    Haskell2010
-  ghc-options:         -Wall -threaded
+--executable diet-criterion
+--  main-is:             Diet.hs
+--  build-depends:       aeson               >= 0.8,
+--                       base                >= 4.6   && < 5,
+--                       base-compat         >= 0.8.1 && < 1,
+--                       bytestring          >= 0.10.4,
+--                       criterion           >= 1.2   && < 1.5,
+--                       directory           >= 1.2,
+--                       statistics          >= 0.14,
+--                       text                >= 1.2,
+--                       transformers        >= 0.2,
+--                       transformers-compat >= 0.4,
+--                       vector              >= 0.10.9
+--  default-language:    Haskell2010
+--  ghc-options:         -Wall -threaded
+--
