@@ -46,7 +46,7 @@ packages:
     extra-dep: true
   - location:
      git: https://github.com/ku-fpg/javascript-bridge
-     commit: 40784dc5259793c8c9a544d052a69b629e2d004e
+     commit: '11a145610d1c905ceb9934b138553855f53d96fb'                          
     extra-dep: true
 
 # Dependency packages to be pulled from upstream that are not in the resolver
