@@ -2,7 +2,9 @@
 module Main (main) where
 
 import Criterion.Main (defaultMain, bench, nfIO)
+import Data.Map (toList)
 import Data.Maybe (isJust)
+import Data.List (sort)
 import Graphics.Blank
 import Paths_blank_canvas_mark
 import Prelude.Compat
@@ -69,7 +71,21 @@ runBenchmark = do
     let c2 = if wk
              then c1 { weak = True }
              else c1
+    prof <- isJust <$> lookupEnv "BLANK_PROFILE"
+    let c3 = if prof
+             then c2 { profiling = True }
+             else c2    
     putStrLn $ "Tests: " ++ unwords benchSummaries
-    blankCanvas c2 $ \ ctx -> do
-        defaultMain . map (\(b, s) -> bench s . nfIO $ b ctx) $ zip benchmarks benchSummaries
+    blankCanvas c3 $ \ ctx -> do
+        defaultMain
+           [ bench s $ nfIO $ b ctx
+           | (b,s) <- zip benchmarks benchSummaries
+           ]
+        pktProf <-  readPacketProfile ctx
+        putStr $ unlines
+                 -- number of packets, each with how many commands and procedures
+               [ show n ++ "," ++ show c ++ "," ++ show p
+               | (PacketProfile c p,n) <- sort $ toList pktProf
+               ]
         putStrLn "done"
+

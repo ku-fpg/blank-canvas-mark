@@ -38,6 +38,7 @@ executable blank-canvas-mark
   build-depends:       base         >= 4.6   && < 5,
                        base-compat  >= 0.8.1,
                        blank-canvas == 0.7,
+                       containers,
                        criterion    >= 1.2,
                        filepath,
                        open-browser,
