@@ -23,7 +23,7 @@ benchmark ctx = do
     ys <- replicateM numWords $ randomYCoord ctx
     ws <- cycle <$> replicateM numWords randomWord
     send' ctx $ for_ (zip3 xs ys ws)
-                     (\x y word -> showText (x, y) word)
+                     (\(x, y, word) -> showText (x, y) word)
 
 summary :: String
 summary = "FillText"

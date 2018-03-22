@@ -13,7 +13,7 @@ benchmark ctx = do
     xs <- replicateM numCircles $ randomXCoord ctx
     ys <- replicateM numCircles $ randomYCoord ctx
     send' ctx $ for_ (zip3 xs ys (cycle ["red","blue","green"]))
-                    (\ x y col -> showBall (x,y) col)
+                    (\ (x, y, col) -> showBall (x,y) col)
 
 summary :: String
 summary = "CirclesUniformSize"

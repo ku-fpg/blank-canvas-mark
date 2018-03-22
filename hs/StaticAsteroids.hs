@@ -3,6 +3,7 @@
 module StaticAsteroids (benchmark, summary) where
 
 import           Control.Monad  hiding (sequence_)
+import           Data.Foldable  (sequenceA_)
 import           Graphics.Blank
 import           System.Random
 import           Utils
@@ -15,7 +16,7 @@ benchmark ctx = do
   dys <- replicateM numAsteroids $ randomRIO (-15, 15)
   send' ctx $ do
              clearCanvas
-             sequenceA [showAsteroid (x,y) (mkPts (x,y) ds)
+             sequenceA_ [showAsteroid (x,y) (mkPts (x,y) ds)
                        | x <- xs
                        | y <- ys
                        | ds <- cycle $ splitEvery 6 $ zip dxs dys

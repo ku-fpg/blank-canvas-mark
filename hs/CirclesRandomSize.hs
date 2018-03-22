@@ -16,7 +16,7 @@ benchmark ctx = do
     ys <- replicateM numCircles $ randomYCoord ctx
     rs <- replicateM numCircles $ randomRIO (radiusMin, radiusMax)
     send' ctx $ for_ (zip4 xs ys rs (cycle ["red","blue","green"]))
-                     (\ x y r col -> showBall (x, y) r col)
+                     (\ (x, y, r, col) -> showBall (x, y) r col)
 
 
 summary :: String
