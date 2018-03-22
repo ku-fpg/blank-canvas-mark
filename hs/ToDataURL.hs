@@ -1,3 +1,4 @@
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp  #-}
 module ToDataURL (benchmark, summary) where
@@ -38,4 +39,3 @@ summary = "ToDataURL"
 
 numPictures :: Int
 numPictures = 1
-

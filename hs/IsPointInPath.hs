@@ -1,16 +1,18 @@
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ParallelListComp #-}
 module IsPointInPath (benchmark, summary) where
 
-import Control.Monad.Compat
+import           Control.Monad.Compat
 
-import Graphics.Blank
-import Prelude.Compat
-import Utils
+import           Data.Foldable        (for_, sequenceA_)
+
+import           Graphics.Blank
+import           Prelude.Compat
+import           Utils
 
 benchmark :: CanvasBenchmark
-benchmark ctx = sequence_ [ internal ctx | _ <- [1..rounds]]
+benchmark ctx = for_ [1..rounds] (const (internal ctx))
 
 internal :: CanvasBenchmark
 internal ctx = do
@@ -19,7 +21,7 @@ internal ctx = do
     pathY1 <- randomYCoord ctx
     pathY2 <- randomYCoord ctx
     points <- replicateM pointsPerPath $ (,) <$> randomXCoord ctx <*> randomYCoord ctx
-    send ctx $ sequence_ [ isInPath (pathX1, pathX2, pathY1, pathY2) points ]
+    send' ctx $ sequenceA_ [ isInPath (pathX1, pathX2, pathY1, pathY2) points ]
 
 summary :: String
 summary = "IsPointInPath"

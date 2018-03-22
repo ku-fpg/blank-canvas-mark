@@ -1,10 +1,11 @@
-{-# Language ParallelListComp #-}
+{-# LANGUAGE ApplicativeDo    #-}
+{-# LANGUAGE ParallelListComp #-}
 module StaticAsteroids (benchmark, summary) where
 
-import Control.Monad hiding (sequence_)
-import Graphics.Blank
-import System.Random
-import Utils
+import           Control.Monad  hiding (sequence_)
+import           Graphics.Blank
+import           System.Random
+import           Utils
 
 benchmark :: CanvasBenchmark
 benchmark ctx = do
@@ -14,7 +15,7 @@ benchmark ctx = do
   dys <- replicateM numAsteroids $ randomRIO (-15, 15)
   send' ctx $ do
              clearCanvas
-             sequence_ [showAsteroid (x,y) (mkPts (x,y) ds)
+             sequenceA [showAsteroid (x,y) (mkPts (x,y) ds)
                        | x <- xs
                        | y <- ys
                        | ds <- cycle $ splitEvery 6 $ zip dxs dys

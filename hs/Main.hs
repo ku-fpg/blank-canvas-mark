@@ -1,14 +1,15 @@
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 module Main (main) where
 
-import Criterion.Main (defaultMain, bench, nfIO)
-import Data.Map (toList)
-import Data.Maybe (isJust)
-import Data.List (sort)
-import Graphics.Blank
-import Paths_blank_canvas_mark
-import Prelude.Compat
-import System.Environment (lookupEnv)
+import           Criterion.Main          (bench, defaultMain, nfIO)
+import           Data.List               (sort)
+import           Data.Map                (toList)
+import           Data.Maybe              (isJust)
+import           Graphics.Blank
+import           Paths_blank_canvas_mark
+import           Prelude.Compat
+import           System.Environment      (lookupEnv)
 
 -------------------------------------------------------------------------------
 
@@ -24,7 +25,7 @@ import qualified Rave
 import qualified StaticAsteroids
 import qualified ToDataURL
 
-import Utils
+import           Utils
 
 -------------------------------------------------------------------------------
 
@@ -64,17 +65,24 @@ runBenchmark = do
     dat <- getDataDir
     let c0 = 3000 { root = dat }
     remote <- isJust <$> lookupEnv "BLANK_REMOTE"
-    let c1 = if remote 
+    let c1 = if remote
              then c0 { middleware = [] }
              else c0
     wk <- isJust <$> lookupEnv "BLANK_WEAK"
-    let c2 = if wk
-             then c1 { weak = True }
+    app <- isJust <$> lookupEnv "BLANK_APP"
+    str <- isJust <$> lookupEnv "BLANK_STRONG"
+    print (app,str,wk)
+    let c2 = if app
+             then c1 { bundling = Appl }
+             else if str
+             then c1 { bundling = Strong }
+             else if wk
+             then c1 { bundling = Weak}
              else c1
     prof <- isJust <$> lookupEnv "BLANK_PROFILE"
     let c3 = if prof
              then c2 { profiling = True }
-             else c2    
+             else c2
     putStrLn $ "Tests: " ++ unwords benchSummaries
     blankCanvas c3 $ \ ctx -> do
         defaultMain
@@ -88,4 +96,3 @@ runBenchmark = do
                | (PacketProfile c p,n) <- sort $ toList pktProf
                ]
         putStrLn "done"
-

@@ -1,11 +1,13 @@
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ParallelListComp #-}
+{-# LANGUAGE ParallelListComp  #-}
 module Image (benchmark, summary) where
 
 import           Control.Monad
 
-import qualified Data.Text as T
-import           Data.Text (Text)
+import           Data.Foldable   (sequenceA_)
+import           Data.Text       (Text)
+import qualified Data.Text       as T
 
 import           Graphics.Blank
 
@@ -23,7 +25,7 @@ benchmark ctx = do
     thetas <- replicateM numImages $ randomRIO (0, 2*pi)
     send' ctx $ do
        img <- newImage image
-       sequence_ [ drawTheImage (x,y,w,h) theta img
+       sequenceA_ [ drawTheImage (x,y,w,h) theta img
                          | x     <- xs
                          | y     <- ys
                          | w     <- ws

@@ -1,11 +1,12 @@
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ParallelListComp #-}
+{-# LANGUAGE ParallelListComp  #-}
 module MeasureText (benchmark, summary) where
 
 import           Control.Monad
 
-import qualified Data.Text as T
-import           Data.Text (Text)
+import           Data.Text      (Text)
+import qualified Data.Text      as T
 
 import           Graphics.Blank
 
@@ -16,12 +17,13 @@ import           Utils
 benchmark :: CanvasBenchmark
 benchmark ctx = do
     ws <- replicateM numWords randomWord
-    wds <- send ctx $ do
+    wds <- send' ctx $ do
         fillStyle("black")
         font("10pt Calibri")
-        sequence [ measureText word
-                 | word <- ws
-                 ]
+      --  for ws measureText
+        sequenceA [ measureText word
+                  | word <- ws
+                  ]
     x <- randomXCoord ctx
     y <- randomYCoord ctx
 
@@ -42,4 +44,3 @@ randomWord :: IO Text
 randomWord = do
 --  sz <- randomRIO (1,10)
   fmap T.pack . replicateM 10 $ randomRIO ('a', 'z')
-

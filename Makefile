@@ -10,6 +10,7 @@ build::
 	cabal sandbox init
 	cabal sandbox add-source ../blank-canvas  # the latest version
 	cabal sandbox add-source ../kansas-comet
+	cabal sandbox add-source ../javascript-bridge
 	cabal install --dependencies-only   
 	cabal configure
 	cabal build

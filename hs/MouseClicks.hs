@@ -1,11 +1,12 @@
-{-# Language ParallelListComp #-}
+{-# LANGUAGE ApplicativeDo    #-}
+{-# LANGUAGE ParallelListComp #-}
 
 module MouseClicks (benchmark, summary) where
 
 import           Control.Monad
 
-import qualified Data.Text as T
-import           Data.Text (Text)
+import           Data.Text      (Text)
+import qualified Data.Text      as T
 
 import           Graphics.Blank
 
@@ -41,7 +42,7 @@ detect ctx col = do
   event <- wait ctx
   case ePageXY event of
     Nothing  -> return ()
-    Just pos -> send' ctx $ showBall pos col
+    Just pos -> send ctx $ showBall pos col
 
 click :: Text
 click = T.pack "mouseDown"
