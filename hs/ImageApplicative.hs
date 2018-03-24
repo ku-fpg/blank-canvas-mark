@@ -1,10 +1,11 @@
+--{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp  #-}
-
-module Image (benchmark, summary) where
+module ImageApplicative (benchmark, summary) where
 
 import           Control.Monad
 
+import           Data.Foldable   (sequenceA_)
 import           Data.Text       (Text)
 import qualified Data.Text       as T
 
@@ -24,7 +25,7 @@ benchmark ctx = do
     thetas <- replicateM numImages $ randomRIO (0, 2*pi)
     send' ctx $ do
        img <- newImage image
-       sequence_ [ drawTheImage (x,y,w,h) theta img
+       sequenceA_ [ drawTheImage (x,y,w,h) theta img
                          | x     <- xs
                          | y     <- ys
                          | w     <- ws
@@ -33,7 +34,7 @@ benchmark ctx = do
                          ]
 
 summary :: String
-summary = "ImageMark"
+summary = "ImageMarkApplicative"
 
 numImages :: Int
 numImages = 1000

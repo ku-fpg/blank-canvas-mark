@@ -1,11 +1,12 @@
-{-# Language ParallelListComp #-}
+--{-# LANGUAGE ApplicativeDo    #-}
+{-# LANGUAGE ParallelListComp #-}
 
-module MouseClicks (benchmark, summary) where
+module MouseClicksApplicative (benchmark, summary) where
 
 import           Control.Monad
 
-import qualified Data.Text as T
-import           Data.Text (Text)
+import           Data.Text      (Text)
+import qualified Data.Text      as T
 
 import           Graphics.Blank
 

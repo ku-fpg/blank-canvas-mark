@@ -2,14 +2,14 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 module Main (main) where
 
-import           Criterion.Main          (bench, defaultMain, nfIO)
-import           Data.List               (sort)
-import           Data.Map                (toList)
-import           Data.Maybe              (isJust)
+import           Criterion.Main                (bench, defaultMain, nfIO)
+import           Data.List                     (sort)
+import           Data.Map                      (toList)
+import           Data.Maybe                    (isJust)
 import           Graphics.Blank
 import           Paths_blank_canvas_mark
 import           Prelude.Compat
-import           System.Environment      (lookupEnv)
+import           System.Environment            (lookupEnv)
 
 -------------------------------------------------------------------------------
 
@@ -24,6 +24,18 @@ import qualified MeasureText
 import qualified Rave
 import qualified StaticAsteroids
 import qualified ToDataURL
+
+-- import qualified BezierApplicative
+import qualified CirclesRandomSizeApplicative
+import qualified CirclesUniformSizeApplicative
+import qualified FillTextApplicative
+import qualified ImageApplicative
+import qualified IsPointInPathApplicative
+--import qualified LifeApplicative -- No JS version
+import qualified MeasureTextApplicative
+import qualified RaveApplicative
+import qualified StaticAsteroidsApplicative
+import qualified ToDataURLApplicative
 
 import           Utils
 
@@ -59,6 +71,32 @@ benchSummaries = [ {- Bezier.summary
                  , MeasureText.summary
                  , ToDataURL.summary
                  ]
+benchmarksA :: [CanvasBenchmark]
+benchmarksA = [ {-BezierApplicative.benchmark
+             , -}CirclesRandomSizeApplicative.benchmark
+             , CirclesUniformSizeApplicative.benchmark
+             , FillTextApplicative.benchmark
+             , ImageApplicative.benchmark
+--             , LifeApplicative.benchmark
+             , StaticAsteroidsApplicative.benchmark
+             , RaveApplicative.benchmark
+             , IsPointInPathApplicative.benchmark
+             , MeasureTextApplicative.benchmark
+             , ToDataURLApplicative.benchmark
+             ]
+benchSummariesA :: [String]
+benchSummariesA = [ {- BezierApplicative.summary
+                 , -} CirclesRandomSizeApplicative.summary
+                 , CirclesUniformSizeApplicative.summary
+                 , FillTextApplicative.summary
+                 , ImageApplicative.summary
+--                 , LifeApplicative.summary
+                 , StaticAsteroidsApplicative.summary
+                 , RaveApplicative.summary
+                 , IsPointInPathApplicative.summary
+                 , MeasureTextApplicative.summary
+                 , ToDataURLApplicative.summary
+                 ]
 
 runBenchmark :: IO ()
 runBenchmark = do
@@ -83,11 +121,11 @@ runBenchmark = do
     let c3 = if prof
              then c2 { profiling = True }
              else c2
-    putStrLn $ "Tests: " ++ unwords benchSummaries
+    putStrLn $ "Tests: " ++ unwords (benchSummaries ++ benchSummariesA)
     blankCanvas c3 $ \ ctx -> do
         defaultMain
            [ bench s $ nfIO $ b ctx
-           | (b,s) <- zip benchmarks benchSummaries
+             | (b,s) <- zip (benchmarks ++ benchmarksA) (benchSummaries ++ benchSummariesA)
            ]
         pktProf <-  readPacketProfile ctx
         putStr $ unlines

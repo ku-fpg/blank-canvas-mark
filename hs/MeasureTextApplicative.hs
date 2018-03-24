@@ -1,12 +1,13 @@
+--{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp  #-}
-
-module MeasureText (benchmark, summary) where
+module MeasureTextApplicative (benchmark, summary) where
 
 import           Control.Monad
 
-import           Data.Text      (Text)
-import qualified Data.Text      as T
+import           Data.Text        (Text)
+import qualified Data.Text        as T
+import           Data.Traversable (for)
 
 import           Graphics.Blank
 
@@ -20,9 +21,10 @@ benchmark ctx = do
     wds <- send' ctx $ do
         fillStyle("black")
         font("10pt Calibri")
-        sequence [ measureText word
-                 | word <- ws
-                 ]
+        for ws measureText
+      --  sequenceA [ measureText word
+      --            | word <- ws
+      --            ]
     x <- randomXCoord ctx
     y <- randomYCoord ctx
 
@@ -33,7 +35,7 @@ benchmark ctx = do
     return ()
 
 summary :: String
-summary = "MeasureText"
+summary = "MeasureTextApplicative"
 
 numWords :: Int
 numWords = 1000

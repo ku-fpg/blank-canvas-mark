@@ -1,11 +1,11 @@
+--{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ParallelListComp  #-}
-
-module FillText (benchmark, summary) where
+module FillTextApplicative (benchmark, summary) where
 
 import           Control.Monad.Compat
 
+import           Data.Foldable        (for_)
 import           Data.Text            (Text)
 import qualified Data.Text            as T
 
@@ -22,14 +22,11 @@ benchmark ctx = do
     xs <- replicateM numWords $ randomXCoord ctx
     ys <- replicateM numWords $ randomYCoord ctx
     ws <- cycle <$> replicateM numWords randomWord
-    send' ctx $ sequence_ [ showText (x, y) word
-                             | x <- xs
-                             | y <- ys
-                             | word <- ws
-                             ]
+    send' ctx $ for_ (zip3 xs ys ws)
+                     (\(x, y, word) -> showText (x, y) word)
 
 summary :: String
-summary = "FillText"
+summary = "FillTextApplicative"
 
 numWords :: Int
 numWords = 1000

@@ -1,17 +1,17 @@
 {- Code adapted from https://github.com/ku-fpg/better-life -}
-module Life (benchmark, summary) where
+module LifeApplicative (benchmark, summary) where
 
-import Control.Concurrent
-import Control.Monad hiding (sequence_)
+import           Control.Concurrent
+import           Control.Monad      hiding (sequence_)
 
-import Data.List
-import Data.Text (pack)
+import           Data.List
+import           Data.Text          (pack)
 
-import Graphics.Blank
+import           Graphics.Blank
 
-import Numeric
+import           Numeric
 
-import Utils
+import           Utils
 
 type Pos = (Int,Int)
 type Size = (Int,Int)
@@ -29,16 +29,16 @@ numIters = 30
 
 data LifeBoard c b = LifeBoard{
     config :: c
-  , board :: b
+  , board  :: b
 } deriving Show
 
 renderBall :: Pos -> Canvas ()
-renderBall (x,y) = do 
+renderBall (x,y) = do
         beginPath()
         let x' = 10 * x
         let y' = 10 * y
-        fillStyle $ pack $ '#' : concat 
-                [showHex (255 - (x' `mod` 255)) "", 
+        fillStyle $ pack $ '#' : concat
+                [showHex (255 - (x' `mod` 255)) "",
                   '0' : (showHex (0 :: Int) ""),
                   showHex (y' `mod` 255) ""]
         arc(fromIntegral x', fromIntegral y', 5 , 0, pi*2, False)
@@ -77,12 +77,12 @@ survivors b = LifeBoard (config b) $ filter (\p -> elem (liveneighbs b p) [2,3])
 --[ p | p <- board b, elem (liveneighbs b p) [2,3] ]
 
 births :: Board -> Board
-births b = LifeBoard (config b) $ filter (\p -> isEmpty b p && liveneighbs b p == 3) 
+births b = LifeBoard (config b) $ filter (\p -> isEmpty b p && liveneighbs b p == 3)
                                 $ nub $ concatMap (board . (neighbs (config b))) $ board b
 
 lifeCanvas :: Int -> DeviceContext -> Board -> IO ()
-lifeCanvas n dc b = do 
-        send' dc $ do 
+lifeCanvas n dc b = do
+        send' dc $ do
                 clearRect (0, 0, width dc, height dc)
                 renderBalls $ alive b
         threadDelay $ 50 * 50
@@ -101,10 +101,10 @@ scene :: Config -> [Pos] -> Board
 scene = foldr inv . empty
 
 gliderGun :: [Pos]
-gliderGun = [(2,6), (2,7), (3,6), (3,7), (12,6), 
-    (12,7), (12,8), (13,5), (13,9), (14,4), 
-    (14,10), (15,4), (15,10), (16,7), (17,5), 
+gliderGun = [(2,6), (2,7), (3,6), (3,7), (12,6),
+    (12,7), (12,8), (13,5), (13,9), (14,4),
+    (14,10), (15,4), (15,10), (16,7), (17,5),
     (17,9), (18,6), (18,7), (18,8), (19,7),
-    (22,4), (22,5), (22,6), (23,4), (23,5), 
-    (23,6), (24,3), (24,7), (26,2), (26,3), 
+    (22,4), (22,5), (22,6), (23,4), (23,5),
+    (23,6), (24,3), (24,7), (26,2), (26,3),
     (26,7), (26,8), (36,4), (36,5), (37,4), (37,5)]
