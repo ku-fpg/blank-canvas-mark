@@ -32,6 +32,18 @@ executable blank-canvas-mark
                        ToDataURL
                        StaticAsteroids
                        Utils
+                       BezierApplicative
+                       CirclesRandomSizeApplicative
+                       CirclesUniformSizeApplicative
+                       FillTextApplicative
+                       ImageApplicative
+                       IsPointInPathApplicative
+                       LifeApplicative
+                       MeasureTextApplicative
+                       RaveApplicative
+                       ToDataURLApplicative
+                       StaticAsteroidsApplicative
+
 
                        Paths_blank_canvas_mark
 -- test a specific version of blank-canvas
@@ -49,19 +61,19 @@ executable blank-canvas-mark
   default-language:    Haskell2010
   ghc-options:         -Wall -threaded
 
---executable diet-criterion
---  main-is:             Diet.hs
---  build-depends:       aeson               >= 0.8,
---                       base                >= 4.6   && < 5,
---                       base-compat         >= 0.8.1 && < 1,
---                       bytestring          >= 0.10.4,
---                       criterion           >= 1.2   && < 1.5,
---                       directory           >= 1.2,
---                       statistics          >= 0.14,
---                       text                >= 1.2,
---                       transformers        >= 0.2,
---                       transformers-compat >= 0.4,
---                       vector              >= 0.10.9
---  default-language:    Haskell2010
---  ghc-options:         -Wall -threaded
---
+executable diet-criterion
+  main-is:             Diet.hs
+  build-depends:       aeson               >= 0.8,
+                       base                >= 4.6   && < 5,
+                       base-compat         >= 0.8.1 && < 1,
+                       bytestring          >= 0.10.4,
+                       criterion           >= 1.2   && < 1.5,
+                       directory           >= 1.2,
+                       statistics          >= 0.14,
+                       text                >= 1.2,
+                       transformers        >= 0.2,
+                       transformers-compat >= 0.4,
+                       vector              >= 0.10.9
+  default-language:    Haskell2010
+  ghc-options:         -Wall -threaded
+

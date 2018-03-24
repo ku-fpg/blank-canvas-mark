@@ -40,14 +40,15 @@ packages:
   - '../blank-canvas/'
   - '../blank-canvas/wiki-suite/'
   - '../blank-canvas/examples/'
+  - '../javascript-bridge'
   - location:
       git: 'git@github.com:ku-fpg/remote-monad'
-      commit: '03f2e83'
+      commit: 'f2fa0c0c7e564d03585106b8e190537dc83be0db'
     extra-dep: true
-  - location:
-     git: https://github.com/ku-fpg/javascript-bridge
-     commit: '11a145610d1c905ceb9934b138553855f53d96fb'                          
-    extra-dep: true
+    #  - location:
+    #     git: https://github.com/ku-fpg/javascript-bridge
+    #     commit: '11a145610d1c905ceb9934b138553855f53d96fb'                          
+    #    extra-dep: true
 
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
