@@ -1,16 +1,15 @@
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE ParallelListComp #-}
-{-# LANGUAGE ApplicativeDo #-}
+{-# LANGUAGE ParallelListComp  #-}
+--{-# LANGUAGE ApplicativeDo #-}
 module Rave (benchmark, summary) where
 
 import           Control.Monad.Compat
 
-import           Data.Key (forWithKey_)
-import           Data.List (genericLength)
-import Data.Foldable (sequenceA_)
+import           Data.Key             (forWithKey_)
+import           Data.List            (genericLength)
 import           Graphics.Blank
-import qualified Graphics.Blank.Style as S
 import           Graphics.Blank.Style (CanvasColor)
+import qualified Graphics.Blank.Style as S
 
 import           Prelude.Compat
 
@@ -23,10 +22,10 @@ benchmark ctx = do
     let w = width ctx
         h = height ctx
         dy = h / fromIntegral numGradients
-        ys = [0, dy .. h-dy]
+        ys = [0, dy .. h - dy]
     rgbsList <- replicateM numGradients . replicateM numColors $
         S.rgb <$> randomIO <*> randomIO <*> randomIO
-    send' ctx $ sequenceA_ [ drawGradient (0, y, w, dy) rgbs
+    send' ctx $ sequence_ [ drawGradient (0, y, w, dy) rgbs
                            | y <- ys
                            | rgbs <- rgbsList
                            ]

@@ -1,17 +1,18 @@
---{-# LANGUAGE ApplicativeDo     #-}
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp  #-}
 
-module IsPointInPath (benchmark, summary) where
+module IsPointInPathSequenceADo (benchmark, summary) where
 
 import           Control.Monad.Compat
+import           Data.Foldable        (sequenceA_)
 import           Graphics.Blank
 import           Prelude.Compat
 import           Utils
 
 benchmark :: CanvasBenchmark
-benchmark ctx = sequence_ [ internal ctx | _ <- [1..rounds]]
+benchmark ctx = sequenceA_ [ internal ctx | _ <- [1..rounds]]
 
 internal :: CanvasBenchmark
 internal ctx = do
@@ -20,10 +21,10 @@ internal ctx = do
     pathY1 <- randomYCoord ctx
     pathY2 <- randomYCoord ctx
     points <- replicateM pointsPerPath $ (,) <$> randomXCoord ctx <*> randomYCoord ctx
-    send' ctx $ sequence_ [ isInPath (pathX1, pathX2, pathY1, pathY2) points ]
+    send' ctx $ sequenceA_ [ isInPath (pathX1, pathX2, pathY1, pathY2) points ]
 
 summary :: String
-summary = "IsPointInPath"
+summary = "IsPointInPathSequenceADo"
 
 rounds :: Int
 rounds = 100
@@ -39,7 +40,7 @@ isInPath (pathX, pathY, pathW, pathH) points = do
     strokeStyle("blue");
     beginPath();
     rect(pathX, pathY, pathW, pathH);
-    cmds <- sequence [ do
+    cmds <- sequenceA [ do
                           b <- isPointInPath(x, y);
                           return $ do
                               beginPath();
@@ -49,4 +50,4 @@ isInPath (pathX, pathY, pathW, pathH) points = do
                      | (x, y) <- points
                      ]
     stroke();
-    sequence_ cmds
+    sequenceA_ cmds

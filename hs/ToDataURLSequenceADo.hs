@@ -1,9 +1,10 @@
---{-# LANGUAGE ApplicativeDo     #-}
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp  #-}
-module ToDataURL (benchmark, summary) where
+module ToDataURLSequenceADo (benchmark, summary) where
 
 import           Control.Monad  (replicateM)
+import           Data.Foldable  (sequenceA_)
 import qualified Data.Text      as T
 import           Graphics.Blank
 import           System.Random
@@ -12,7 +13,7 @@ import           Utils
 benchmark :: CanvasBenchmark
 benchmark ctx = do
       rs <- replicateM numPictures $ randomRIO (0,100)
-      send' ctx $  sequence_ [picture r | r <- rs ]
+      send' ctx $  sequenceA_ [picture r | r <- rs ]
 
 picture :: Double -> Canvas ()
 picture  x = do
@@ -35,7 +36,7 @@ picture  x = do
         fillText(T.pack $ show $ T.take 50 $ cloud, 10, 300)
 
 summary :: String
-summary = "ToDataURL"
+summary = "ToDataURLSequenceAApplicativeDo"
 
 numPictures :: Int
 numPictures = 30

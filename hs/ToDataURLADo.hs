@@ -1,7 +1,7 @@
---{-# LANGUAGE ApplicativeDo     #-}
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp  #-}
-module ToDataURL (benchmark, summary) where
+module ToDataURLADo (benchmark, summary) where
 
 import           Control.Monad  (replicateM)
 import qualified Data.Text      as T
@@ -35,7 +35,7 @@ picture  x = do
         fillText(T.pack $ show $ T.take 50 $ cloud, 10, 300)
 
 summary :: String
-summary = "ToDataURL"
+summary = "ToDataURLADo"
 
 numPictures :: Int
 numPictures = 30

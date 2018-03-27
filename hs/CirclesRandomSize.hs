@@ -1,10 +1,9 @@
-{-# LANGUAGE ApplicativeDo     #-}
+--{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ParallelListComp  #-}
 module CirclesRandomSize (benchmark, summary) where
 
 import           Control.Monad  hiding (sequence_)
-import           Data.Foldable  (for_)
-import           Data.List      (zip4)
 import           Data.Text      hiding (count)
 import           Graphics.Blank
 import           System.Random
@@ -15,9 +14,13 @@ benchmark ctx = do
     xs <- replicateM numCircles $ randomXCoord ctx
     ys <- replicateM numCircles $ randomYCoord ctx
     rs <- replicateM numCircles $ randomRIO (radiusMin, radiusMax)
-    send' ctx $ for_ (zip4 xs ys rs (cycle ["red","blue","green"]))
-                     (\ (x, y, r, col) -> showBall (x, y) r col)
 
+    send' ctx $ sequence_ [ showBall (x, y) r col
+                             | x <- xs
+                             | y <- ys
+                             | r <- rs
+                             | col <- cycle ["red","blue","green"]
+                             ]
 
 summary :: String
 summary = "CirclesRandomSize"

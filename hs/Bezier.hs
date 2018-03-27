@@ -1,10 +1,9 @@
-{-# LANGUAGE ApplicativeDo     #-}
+--{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 module Bezier (benchmark, summary) where
 
 import           Control.Monad.Compat
-import           Data.Foldable        (for_)
 import           Graphics.Blank
 import           Prelude.Compat
 import           Utils
@@ -18,7 +17,8 @@ benchmark ctx = do
                       <*> randomYCoord ctx
                       <*> randomXCoord ctx
                       <*> randomYCoord ctx
-    send' ctx $ for_ bzs drawCloud
+    send' ctx $ forM_ bzs drawCloud
+
 
 summary :: String
 summary = "Bezier"

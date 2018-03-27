@@ -1,7 +1,7 @@
---{-# LANGUAGE ApplicativeDo     #-}
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp  #-}
-module MeasureText (benchmark, summary) where
+module MeasureTextADo (benchmark, summary) where
 
 import           Control.Monad
 
@@ -33,7 +33,7 @@ benchmark ctx = do
     return ()
 
 summary :: String
-summary = "MeasureText"
+summary = "MeasureTextApplicativeDo"
 
 numWords :: Int
 numWords = 2000

@@ -1,4 +1,4 @@
-{-# LANGUAGE ApplicativeDo    #-}
+--{-# LANGUAGE ApplicativeDo    #-}
 {-# LANGUAGE ParallelListComp #-}
 
 module MouseClicks (benchmark, summary) where

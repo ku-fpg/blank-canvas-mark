@@ -1,7 +1,7 @@
 --{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp  #-}
-module MeasureText (benchmark, summary) where
+module MeasureTextSequenceA (benchmark, summary) where
 
 import           Control.Monad
 
@@ -20,7 +20,7 @@ benchmark ctx = do
     wds <- send' ctx $ do
         fillStyle("black")
         font("10pt Calibri")
-        sequence [ measureText word
+        sequenceA [ measureText word
                   | word <- ws
                   ]
     x <- randomXCoord ctx
@@ -33,7 +33,7 @@ benchmark ctx = do
     return ()
 
 summary :: String
-summary = "MeasureText"
+summary = "MeasureTextSequenceA"
 
 numWords :: Int
 numWords = 2000

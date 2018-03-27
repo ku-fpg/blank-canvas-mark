@@ -1,9 +1,9 @@
---{-# LANGUAGE ApplicativeDo     #-}
+{-# LANGUAGE ApplicativeDo     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp  #-}
 
-module IsPointInPath (benchmark, summary) where
+module IsPointInPathADo (benchmark, summary) where
 
 import           Control.Monad.Compat
 import           Graphics.Blank
@@ -23,7 +23,7 @@ internal ctx = do
     send' ctx $ sequence_ [ isInPath (pathX1, pathX2, pathY1, pathY2) points ]
 
 summary :: String
-summary = "IsPointInPath"
+summary = "IsPointInPathADo"
 
 rounds :: Int
 rounds = 100
